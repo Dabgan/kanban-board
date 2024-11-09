@@ -1,0 +1,12 @@
+{
+    "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"],
+    "plugins": ["stylelint-order"],
+    "rules": {
+        "order/properties-alphabetical-order": true,
+        "max-nesting-depth": 3,
+        "no-empty-source": null,
+        "scss/selector-no-redundant-nesting-selector": true,
+        "scss/no-global-function-names": null,
+        "scss/load-no-partial-leading-underscore": null
+    }
+}
