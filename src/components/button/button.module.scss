@@ -1,0 +1,7 @@
+@use '@/styles/abstracts' as *;
+
+.button {
+    @include respond-to('md') {
+        // styles for medium screens and up
+    }
+}
