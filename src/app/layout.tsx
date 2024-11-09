@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import { Toaster } from 'react-hot-toast';
 import '@/styles/globals.scss';
 
 export const metadata: Metadata = {
-    title: 'Next.js Template',
-    description: 'Next.js Template with TypeScript, SASS, and Testing',
+    title: 'Kanban Board',
+    description: 'Interactive Kanban board with Next.js',
 };
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     return (
         <html lang="en">
-            <body>{children}</body>
+            <body>
+                {children}
+                <Toaster position="bottom-right" />
+            </body>
         </html>
     );
 };
