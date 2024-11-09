@@ -2,10 +2,10 @@ import { type ReactNode } from 'react';
 
 import styles from './button.module.scss';
 
-interface ButtonProps {
+type ButtonProps = {
     children: ReactNode;
     type?: 'button' | 'submit' | 'reset';
-}
+};
 
 const Button = ({ children }: ButtonProps) => {
     return (

@@ -1,4 +1,4 @@
-import { BoardData } from '@/types';
+import type { BoardData } from '@/types';
 
 export const initialData: BoardData = {
     columns: [
