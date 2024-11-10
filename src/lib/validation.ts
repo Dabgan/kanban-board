@@ -47,6 +47,29 @@ export const validateTitle = (title: string): ValidationResult => {
 };
 
 export const validateCard = (card: Card): ValidationResult => {
+    const requiredFields: ValidationRule[] = [
+        {
+            condition: !card.title,
+            field: 'title',
+            message: 'Title is required',
+        },
+        {
+            condition: !card.description,
+            field: 'description',
+            message: 'Description is required',
+        },
+        {
+            condition: !card.columnId,
+            field: 'columnId',
+            message: 'Column ID is required',
+        },
+    ];
+
+    const requiredValidation = createValidationResult(requiredFields);
+    if (!requiredValidation.isValid) {
+        return requiredValidation;
+    }
+
     const titleValidation = validateTitle(card.title);
     if (!titleValidation.isValid) {
         return titleValidation;
@@ -54,19 +77,9 @@ export const validateCard = (card: Card): ValidationResult => {
 
     const validations: ValidationRule[] = [
         {
-            condition: !card.description.trim(),
-            field: 'description',
-            message: 'Description is required',
-        },
-        {
             condition: card.description.length > DESCRIPTION_MAX_LENGTH,
             field: 'description',
             message: `Description cannot exceed ${DESCRIPTION_MAX_LENGTH} characters`,
-        },
-        {
-            condition: !card.columnId,
-            field: 'columnId',
-            message: 'Column ID is required',
         },
     ];
 

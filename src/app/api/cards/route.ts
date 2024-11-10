@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { handleRouteError } from '@/lib/error-handling';
 import { readBoardData, writeBoardData } from '@/lib/json-storage';
+import { isCardRequestWithoutOrder } from '@/lib/type-guards';
 import { validateCard } from '@/lib/validation';
 import type { BoardData, Card } from '@/types';
 import type { ApiResponse } from '@/types/api';
@@ -20,10 +21,16 @@ export const GET = async (_request: Request) => {
 
 export const POST = async (request: Request) => {
     try {
-        const newCard: Card = await request.json();
-        const boardData = await readBoardData();
+        const requestData = await request.json();
 
-        const validationResult = validateCard(newCard);
+        if (!isCardRequestWithoutOrder(requestData)) {
+            return handleRouteError<Card>(new Error('Invalid card data'), {
+                defaultMessage: 'Invalid card data',
+                status: 400,
+            });
+        }
+
+        const validationResult = validateCard({ ...requestData, order: 0 });
         if (!validationResult.isValid) {
             return handleRouteError<Card>(new Error(validationResult.errors[0]?.message ?? 'Validation failed'), {
                 defaultMessage: 'Validation failed',
@@ -31,11 +38,12 @@ export const POST = async (request: Request) => {
             });
         }
 
-        const columnCards = boardData.cards.filter((card) => card.columnId === newCard.columnId);
+        const boardData = await readBoardData();
+        const columnCards = boardData.cards.filter((card) => card.columnId === requestData.columnId);
         const highestOrder = Math.max(...columnCards.map((card) => card.order), 0);
 
-        const cardWithOrder = {
-            ...newCard,
+        const cardWithOrder: Card = {
+            ...requestData,
             order: highestOrder + 1,
         };
 

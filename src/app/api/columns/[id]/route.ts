@@ -2,16 +2,24 @@ import { NextResponse } from 'next/server';
 
 import { handleRouteError } from '@/lib/error-handling';
 import { readBoardData, writeBoardData } from '@/lib/json-storage';
+import { isColumnRequest } from '@/lib/type-guards';
 import { validateColumn } from '@/lib/validation';
 import type { BoardData, Column } from '@/types';
 import type { ApiResponse } from '@/types/api';
 
 export const PUT = async (request: Request, { params }: { params: { id: string } }) => {
     try {
-        const updatedColumn: Column = await request.json();
-        const boardData = await readBoardData();
+        const requestData = await request.json();
 
-        const validationResult = validateColumn(updatedColumn, boardData.columns);
+        if (!isColumnRequest(requestData)) {
+            return handleRouteError<Column>(new Error('Invalid column data'), {
+                defaultMessage: 'Invalid column data',
+                status: 400,
+            });
+        }
+
+        const boardData = await readBoardData();
+        const validationResult = validateColumn(requestData, boardData.columns);
         if (!validationResult.isValid) {
             return handleRouteError<Column>(new Error(validationResult.errors[0]?.message ?? 'Validation failed'), {
                 defaultMessage: 'Validation failed',
@@ -22,12 +30,12 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
         const updatedBoardData: BoardData = {
             ...boardData,
             columns: boardData.columns.map((existingColumn) =>
-                existingColumn.id === params.id ? updatedColumn : existingColumn,
+                existingColumn.id === params.id ? requestData : existingColumn,
             ),
         };
 
         await writeBoardData(updatedBoardData);
-        const response: ApiResponse<Column> = { data: updatedColumn };
+        const response: ApiResponse<Column> = { data: requestData };
         return NextResponse.json(response);
     } catch (error) {
         return handleRouteError<Column>(error, {
