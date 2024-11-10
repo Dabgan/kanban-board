@@ -3,6 +3,7 @@
 import { createContext, useCallback, useReducer } from 'react';
 import { toast } from 'react-hot-toast';
 
+import { useLoading } from '@/hooks/use-loading';
 import { cardsReducer } from '@/reducers/cards-reducer';
 import { apiClient } from '@/services/api-client';
 import type { Card } from '@/types';
@@ -18,15 +19,15 @@ type CardsProviderProps = {
 export const CardsProvider = ({ children, initialCards }: CardsProviderProps) => {
     const [state, dispatch] = useReducer(cardsReducer, {
         cards: initialCards,
-        isLoading: false,
         error: null,
     });
 
+    const { setGlobalLoading } = useLoading();
+
     const addCard = useCallback(
         async (card: Omit<Card, 'order'>) => {
-            dispatch({ type: 'SET_LOADING', payload: true });
+            setGlobalLoading(true);
             try {
-                // Optimistic update
                 const columnCards = state.cards.filter((existingCard) => existingCard.columnId === card.columnId);
                 const highestOrder = Math.max(...columnCards.map((existingCard) => existingCard.order), 0);
 
@@ -51,15 +52,15 @@ export const CardsProvider = ({ children, initialCards }: CardsProviderProps) =>
                 dispatch({ type: 'SET_CARDS', payload: state.cards });
                 toast.error('Failed to create card');
             } finally {
-                dispatch({ type: 'SET_LOADING', payload: false });
+                setGlobalLoading(false);
             }
         },
-        [state.cards],
+        [state.cards, setGlobalLoading],
     );
 
     const updateCard = useCallback(
         async (id: string, card: Card) => {
-            dispatch({ type: 'SET_LOADING', payload: true });
+            setGlobalLoading(true);
             try {
                 dispatch({ type: 'UPDATE_CARD', payload: card });
 
@@ -76,15 +77,15 @@ export const CardsProvider = ({ children, initialCards }: CardsProviderProps) =>
                 dispatch({ type: 'SET_CARDS', payload: state.cards });
                 toast.error('Failed to update card');
             } finally {
-                dispatch({ type: 'SET_LOADING', payload: false });
+                setGlobalLoading(false);
             }
         },
-        [state.cards],
+        [state.cards, setGlobalLoading],
     );
 
     const deleteCard = useCallback(
         async (id: string) => {
-            dispatch({ type: 'SET_LOADING', payload: true });
+            setGlobalLoading(true);
             try {
                 const previousCards = state.cards;
                 dispatch({ type: 'DELETE_CARD', payload: id });
@@ -102,10 +103,10 @@ export const CardsProvider = ({ children, initialCards }: CardsProviderProps) =>
                 dispatch({ type: 'SET_CARDS', payload: state.cards });
                 toast.error('Failed to delete card');
             } finally {
-                dispatch({ type: 'SET_LOADING', payload: false });
+                setGlobalLoading(false);
             }
         },
-        [state.cards],
+        [state.cards, setGlobalLoading],
     );
 
     return <CardsContext.Provider value={{ state, addCard, updateCard, deleteCard }}>{children}</CardsContext.Provider>;

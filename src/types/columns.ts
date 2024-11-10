@@ -2,8 +2,14 @@ import type { Column } from '@/types';
 
 export type ColumnsState = {
     columns: Column[];
-    isLoading: boolean;
     error: string | null;
+};
+
+export type ColumnsContextType = {
+    state: ColumnsState;
+    addColumn: (column: Omit<Column, 'order'>) => Promise<void>;
+    updateColumn: (id: string, column: Column) => Promise<void>;
+    deleteColumn: (id: string) => Promise<void>;
 };
 
 export type ColumnsAction =

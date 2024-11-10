@@ -2,7 +2,6 @@ import type { Card } from '@/types';
 
 export type CardsState = {
     cards: Card[];
-    isLoading: boolean;
     error: string | null;
 };
 

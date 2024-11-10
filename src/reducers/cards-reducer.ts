@@ -6,7 +6,6 @@ type CardsAction =
     | { type: 'ADD_CARD'; payload: Card }
     | { type: 'UPDATE_CARD'; payload: Card }
     | { type: 'DELETE_CARD'; payload: string }
-    | { type: 'SET_LOADING'; payload: boolean }
     | { type: 'SET_ERROR'; payload: string | null };
 
 export const cardsReducer = (state: CardsState, action: CardsAction): CardsState => {
@@ -39,12 +38,6 @@ export const cardsReducer = (state: CardsState, action: CardsAction): CardsState
                 ...state,
                 cards: state.cards.filter((card) => card.id !== action.payload),
                 error: null,
-            };
-
-        case 'SET_LOADING':
-            return {
-                ...state,
-                isLoading: action.payload,
             };
 
         case 'SET_ERROR':

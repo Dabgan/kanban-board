@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { CardsProviderWrapper } from '@/components/providers/cards-provider';
 import { ColumnsProviderWrapper } from '@/components/providers/columns-provider';
 import { InitialDataWrapper } from '@/components/providers/initial-data-provider';
+import { LoadingProvider } from '@/context/loading-context';
 import '@/styles/globals.scss';
 
 export const metadata: Metadata = {
@@ -15,11 +16,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <html lang="en">
             <body>
-                <InitialDataWrapper>
-                    <ColumnsProviderWrapper>
-                        <CardsProviderWrapper>{children}</CardsProviderWrapper>
-                    </ColumnsProviderWrapper>
-                </InitialDataWrapper>
+                <LoadingProvider>
+                    <InitialDataWrapper>
+                        <ColumnsProviderWrapper>
+                            <CardsProviderWrapper>{children}</CardsProviderWrapper>
+                        </ColumnsProviderWrapper>
+                    </InitialDataWrapper>
+                </LoadingProvider>
                 <Toaster position="bottom-right" />
             </body>
         </html>
