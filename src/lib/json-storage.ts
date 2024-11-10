@@ -1,7 +1,8 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-import type { BoardData } from '@/types';
+import type { BoardData } from '@/types/board';
+import { isBoardData } from '@/types/board';
 
 const JSON_STORAGE_PATH = path.join(process.cwd(), 'src/data/db.json');
 
@@ -9,11 +10,11 @@ export const readBoardData = async (): Promise<BoardData> => {
     const rawData = await fs.readFile(JSON_STORAGE_PATH, 'utf8');
     const parsedData = JSON.parse(rawData);
 
-    if (typeof parsedData === 'object' && parsedData !== null && 'cards' in parsedData && 'columns' in parsedData) {
-        return parsedData as BoardData;
+    if (!isBoardData(parsedData)) {
+        throw new Error('Invalid data structure in db.json');
     }
 
-    throw new Error('Invalid data structure in db.json');
+    return parsedData;
 };
 
 export const writeBoardData = async (boardData: BoardData): Promise<void> => {

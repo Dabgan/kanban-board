@@ -1,3 +1,5 @@
+import { unstable_noStore as noStore } from 'next/cache';
+
 import { InitialDataProvider } from '@/context/initial-data-context';
 import { apiClient } from '@/services/api-client';
 import type { InitialData } from '@/types/initial-data';
@@ -7,6 +9,8 @@ type InitialDataWrapperProps = {
 };
 
 const getInitialData = async (): Promise<InitialData> => {
+    noStore();
+
     const [columnsResponse, cardsResponse] = await Promise.all([apiClient.columns.getAll(), apiClient.cards.getAll()]);
 
     if (columnsResponse.error ?? cardsResponse.error) {
@@ -21,5 +25,6 @@ const getInitialData = async (): Promise<InitialData> => {
 
 export const InitialDataWrapper = async ({ children }: InitialDataWrapperProps) => {
     const initialData = await getInitialData();
+
     return <InitialDataProvider initialData={initialData}>{children}</InitialDataProvider>;
 };

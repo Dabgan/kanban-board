@@ -60,12 +60,13 @@ export const ColumnsProvider = ({ children, initialColumns }: ColumnsProviderPro
         async (id: string, column: Column) => {
             setGlobalLoading(true);
             try {
+                const previousColumns = state.columns;
                 dispatch({ type: 'UPDATE_COLUMN', payload: column });
 
                 const response = await apiClient.columns.update(id, column);
 
                 if (response.error ?? !response.data) {
-                    dispatch({ type: 'SET_COLUMNS', payload: state.columns });
+                    dispatch({ type: 'SET_COLUMNS', payload: previousColumns });
                     toast.error(response.error?.message ?? 'Failed to update column');
                     return;
                 }
@@ -85,26 +86,22 @@ export const ColumnsProvider = ({ children, initialColumns }: ColumnsProviderPro
         async (id: string) => {
             setGlobalLoading(true);
             try {
-                const previousColumns = state.columns;
-                dispatch({ type: 'DELETE_COLUMN', payload: id });
-
                 const response = await apiClient.columns.delete(id);
 
                 if (response.error) {
-                    dispatch({ type: 'SET_COLUMNS', payload: previousColumns });
                     toast.error(response.error.message);
                     return;
                 }
 
+                dispatch({ type: 'DELETE_COLUMN', payload: id });
                 toast.success('Column deleted successfully');
             } catch (error) {
-                dispatch({ type: 'SET_COLUMNS', payload: state.columns });
                 toast.error('Failed to delete column');
             } finally {
                 setGlobalLoading(false);
             }
         },
-        [state.columns, setGlobalLoading],
+        [setGlobalLoading],
     );
 
     return (
