@@ -54,11 +54,6 @@ export const validateCard = (card: Card): ValidationResult => {
             message: 'Title is required',
         },
         {
-            condition: !card.description,
-            field: 'description',
-            message: 'Description is required',
-        },
-        {
             condition: !card.columnId,
             field: 'columnId',
             message: 'Column ID is required',
@@ -77,7 +72,7 @@ export const validateCard = (card: Card): ValidationResult => {
 
     const validations: ValidationRule[] = [
         {
-            condition: card.description.length > DESCRIPTION_MAX_LENGTH,
+            condition: Boolean(card.description && card.description.length > DESCRIPTION_MAX_LENGTH),
             field: 'description',
             message: `Description cannot exceed ${DESCRIPTION_MAX_LENGTH} characters`,
         },

@@ -1,0 +1,31 @@
+.card {
+    background-color: var(--color-surface-hover);
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    margin-bottom: var(--spacing-sm);
+    min-height: 80px;
+    padding: var(--spacing-md);
+    transition: border-color var(--transition-fast);
+
+    &:hover {
+        border-color: var(--color-accent);
+    }
+}
+
+.link {
+    color: var(--color-text);
+    display: block;
+    height: 100%;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}

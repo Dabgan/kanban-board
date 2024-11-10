@@ -83,7 +83,12 @@ export const Board = () => {
                             />
                         </div>
                     ) : (
-                        <Button aria-label="Add new column" onClick={() => setIsAddingColumn(true)} variant="secondary">
+                        <Button
+                            aria-label="Add new column"
+                            onClick={() => setIsAddingColumn(true)}
+                            variant="primary"
+                            className={styles['add-column-button']}
+                        >
                             Add Column
                         </Button>
                     )}
