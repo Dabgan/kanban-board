@@ -9,6 +9,7 @@ type InitialDataWrapperProps = {
 };
 
 const getInitialData = async (): Promise<InitialData> => {
+    // this data should not be cached, so that when we refresh the page we don't see outdated data
     noStore();
 
     const [columnsResponse, cardsResponse] = await Promise.all([apiClient.columns.getAll(), apiClient.cards.getAll()]);
