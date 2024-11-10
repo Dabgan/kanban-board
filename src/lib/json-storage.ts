@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-import type { BoardData } from '@/types/index';
+import type { BoardData } from '@/types';
 
 const JSON_STORAGE_PATH = path.join(process.cwd(), 'src/data/db.json');
 

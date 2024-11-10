@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { handleRouteError } from '@/lib/error-handling';
 import { readBoardData, writeBoardData } from '@/lib/json-storage';
 import { validateCard } from '@/lib/validation';
 import type { BoardData, Card } from '@/types';
@@ -11,9 +12,9 @@ export const GET = async (_request: Request) => {
         const response: ApiResponse<Card[]> = { data: boardData.cards };
         return NextResponse.json(response);
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Failed to fetch cards';
-        const response: ApiResponse<Card[]> = { error: { message: errorMessage } };
-        return NextResponse.json(response, { status: 500 });
+        return handleRouteError<Card[]>(error, {
+            defaultMessage: 'Failed to fetch cards',
+        });
     }
 };
 
@@ -24,12 +25,10 @@ export const POST = async (request: Request) => {
 
         const validationResult = validateCard(newCard);
         if (!validationResult.isValid) {
-            const response: ApiResponse<Card> = {
-                error: {
-                    message: validationResult.errors[0]?.message ?? 'Validation failed',
-                },
-            };
-            return NextResponse.json(response, { status: 400 });
+            return handleRouteError<Card>(new Error(validationResult.errors[0]?.message ?? 'Validation failed'), {
+                defaultMessage: 'Validation failed',
+                status: 400,
+            });
         }
 
         const columnCards = boardData.cards.filter((card) => card.columnId === newCard.columnId);
@@ -49,8 +48,8 @@ export const POST = async (request: Request) => {
         const response: ApiResponse<Card> = { data: cardWithOrder };
         return NextResponse.json(response, { status: 201 });
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Failed to create card';
-        const response: ApiResponse<Card> = { error: { message: errorMessage } };
-        return NextResponse.json(response, { status: 500 });
+        return handleRouteError<Card>(error, {
+            defaultMessage: 'Failed to create card',
+        });
     }
 };

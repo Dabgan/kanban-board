@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
+import { handleRouteError } from '@/lib/error-handling';
 import { readBoardData, writeBoardData } from '@/lib/json-storage';
+import { validateColumn } from '@/lib/validation';
 import type { BoardData, Column } from '@/types';
 import type { ApiResponse } from '@/types/api';
 
@@ -8,6 +10,14 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
     try {
         const updatedColumn: Column = await request.json();
         const boardData = await readBoardData();
+
+        const validationResult = validateColumn(updatedColumn, boardData.columns);
+        if (!validationResult.isValid) {
+            return handleRouteError<Column>(new Error(validationResult.errors[0]?.message ?? 'Validation failed'), {
+                defaultMessage: 'Validation failed',
+                status: 400,
+            });
+        }
 
         const updatedBoardData: BoardData = {
             ...boardData,
@@ -20,9 +30,9 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
         const response: ApiResponse<Column> = { data: updatedColumn };
         return NextResponse.json(response);
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Failed to update column';
-        const response: ApiResponse<Column> = { error: { message: errorMessage } };
-        return NextResponse.json(response, { status: 500 });
+        return handleRouteError<Column>(error, {
+            defaultMessage: 'Failed to update column',
+        });
     }
 };
 
@@ -30,17 +40,25 @@ export const DELETE = async (_request: Request, { params }: { params: { id: stri
     try {
         const boardData = await readBoardData();
 
+        const columnExists = boardData.columns.some((existingColumn) => existingColumn.id === params.id);
+        if (!columnExists) {
+            return handleRouteError<undefined>(new Error('Column not found'), {
+                defaultMessage: 'Column not found',
+                status: 404,
+            });
+        }
+
         const updatedBoardData: BoardData = {
             ...boardData,
             columns: boardData.columns.filter((existingColumn) => existingColumn.id !== params.id),
         };
 
         await writeBoardData(updatedBoardData);
-        const response: ApiResponse<void> = { data: undefined };
+        const response: ApiResponse<undefined> = { data: undefined };
         return NextResponse.json(response);
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Failed to delete column';
-        const response: ApiResponse<void> = { error: { message: errorMessage } };
-        return NextResponse.json(response, { status: 500 });
+        return handleRouteError<undefined>(error, {
+            defaultMessage: 'Failed to delete column',
+        });
     }
 };
