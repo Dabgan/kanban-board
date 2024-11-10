@@ -1,10 +1,12 @@
-import React from 'react';
+'use client';
+
+import { ColumnsTest } from '@/components/columns-test';
 
 const HomePage = () => {
     return (
         <main>
-            <h1>Welcome to Next.js Template</h1>
-            <p>Start building your app</p>
+            <h1>Kanban Board</h1>
+            <ColumnsTest />
         </main>
     );
 };
