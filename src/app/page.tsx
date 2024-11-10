@@ -1,12 +1,11 @@
 'use client';
 
-import { ColumnsTest } from '@/components/columns-test';
+import { Board } from '@/components/board/board';
 
 const HomePage = () => {
     return (
         <main>
-            <h1>Kanban Board</h1>
-            <ColumnsTest />
+            <Board />
         </main>
     );
 };
