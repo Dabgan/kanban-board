@@ -19,8 +19,8 @@ const validateProperty = (data: Record<string, unknown>, validation: PropertyVal
     return validator(data[validation.key]);
 };
 
-const validateProperties = (data: Record<string, unknown>, validations: PropertyValidation[]): boolean => {
-    return validations.every((validation) => validateProperty(data, validation));
+const validateProperties = (data: Record<string, unknown>, validationRules: PropertyValidation[]): boolean => {
+    return validationRules.every((validationRule) => validateProperty(data, validationRule));
 };
 
 const baseValidation = (data: unknown): data is Record<string, unknown> => {

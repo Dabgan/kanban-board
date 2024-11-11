@@ -3,18 +3,18 @@
 import { Draggable } from '@hello-pangea/dnd';
 import Link from 'next/link';
 
-import type { CardProps } from '@/types/card';
+import type { CardComponentProps } from '@/types/card';
 
 import styles from './card.module.scss';
 
-export const Card = ({ card, index }: CardProps) => (
+export const Card = ({ card, index }: CardComponentProps) => (
     <Draggable draggableId={card.id} index={index}>
-        {(provided) => (
+        {(dragHandleProps) => (
             <div
-                ref={provided.innerRef}
+                ref={dragHandleProps.innerRef}
                 className={styles.card}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
+                {...dragHandleProps.draggableProps}
+                {...dragHandleProps.dragHandleProps}
             >
                 <Link href={`/card/${card.id}`} className={styles.link}>
                     <h3 className={styles.title}>{card.title}</h3>

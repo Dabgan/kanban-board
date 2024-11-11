@@ -30,8 +30,8 @@ export const Column = ({ column }: ColumnComponentProps) => {
         state: { cards },
     } = useCards();
 
-    const columnCards = cards
-        .filter((columnCard) => columnCard.columnId === column.id)
+    const sortedColumnCards = cards
+        .filter((boardCard) => boardCard.columnId === column.id)
         .sort((firstCard, secondCard) => firstCard.order - secondCard.order);
 
     const handleEdit = useCallback(async () => {
@@ -49,7 +49,8 @@ export const Column = ({ column }: ColumnComponentProps) => {
     }, [column.id, deleteColumn]);
 
     const handleAddCard = useCallback(async () => {
-        if (!newCardTitle.trim()) {
+        const trimmedTitle = newCardTitle.trim();
+        if (!trimmedTitle) {
             setIsAddingCard(false);
             setNewCardTitle('');
             return;
@@ -57,7 +58,7 @@ export const Column = ({ column }: ColumnComponentProps) => {
 
         await addCard({
             id: generateId('card'),
-            title: newCardTitle.trim(),
+            title: trimmedTitle,
             description: '',
             columnId: column.id,
         });
@@ -163,17 +164,17 @@ export const Column = ({ column }: ColumnComponentProps) => {
                 </button>
             </div>
             <Droppable droppableId={column.id}>
-                {(provided) => (
+                {(dropProvided) => (
                     <div
-                        ref={provided.innerRef}
+                        ref={dropProvided.innerRef}
                         aria-label={`Cards in ${column.title}`}
                         className={styles.content}
-                        {...provided.droppableProps}
+                        {...dropProvided.droppableProps}
                     >
-                        {columnCards.map((cardItem, index) => (
-                            <Card key={cardItem.id} card={cardItem} index={index} />
+                        {sortedColumnCards.map((boardCard, cardIndex) => (
+                            <Card key={boardCard.id} card={boardCard} index={cardIndex} />
                         ))}
-                        {provided.placeholder}
+                        {dropProvided.placeholder}
                     </div>
                 )}
             </Droppable>
