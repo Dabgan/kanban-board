@@ -9,12 +9,13 @@ import styles from './card.module.scss';
 
 export const Card = ({ card, index }: CardComponentProps) => (
     <Draggable draggableId={card.id} index={index}>
-        {(dragHandleProps) => (
+        {(provided, snapshot) => (
             <div
-                ref={dragHandleProps.innerRef}
+                ref={provided.innerRef}
                 className={styles.card}
-                {...dragHandleProps.draggableProps}
-                {...dragHandleProps.dragHandleProps}
+                data-is-dragging={snapshot.isDragging}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
             >
                 <Link href={`/card/${card.id}`} className={styles.link}>
                     <h3 className={styles.title}>{card.title}</h3>
