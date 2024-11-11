@@ -1,20 +1,21 @@
+@use '@/styles/abstracts/sizes';
 @use '@/styles/utilities/accessibility';
 
 .delete-button {
+    @extend %interactive-element;
+    @extend %focus-outline;
+
     align-items: center;
     background: none;
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: sizes.$radius-sm;
     color: var(--color-text-secondary);
     display: flex;
     flex-shrink: 0;
-    height: 32px;
+    height: sizes.$delete-icon-size;
     justify-content: center;
     padding: var(--spacing-sm);
-    width: 32px;
-
-    @extend %interactive-element;
-    @extend %focus-outline;
+    width: sizes.$delete-icon-size;
 
     &:hover {
         color: var(--color-error);

@@ -37,7 +37,7 @@ export const Board = () => {
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
             <main className={styles.board} role="main">
-                <h1 className={styles['visually-hidden']}>Kanban Board</h1>
+                <h1 className="visually-hidden">Kanban Board</h1>
                 <section aria-label="Kanban board columns" className={styles.columns}>
                     {columns.map((column) => (
                         <Column key={column.id} column={column} />
