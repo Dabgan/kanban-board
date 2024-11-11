@@ -1,9 +1,8 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
-
 import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
+import { useAddItem } from '@/hooks/use-add-item';
 
 import styles from './add-item-button.module.scss';
 
@@ -22,41 +21,8 @@ export const AddItemButton = ({
     buttonAriaLabel,
     inputAriaLabel,
 }: AddItemButtonProps) => {
-    const [isAdding, setIsAdding] = useState(false);
-    const [newTitle, setNewTitle] = useState('');
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    const handleAdd = useCallback(async () => {
-        const trimmedTitle = newTitle.trim();
-        if (!trimmedTitle) {
-            setIsAdding(false);
-            setNewTitle('');
-            return;
-        }
-
-        await onAdd(trimmedTitle);
-        setIsAdding(false);
-        setNewTitle('');
-    }, [newTitle, onAdd]);
-
-    const handleKeyDown = useCallback(
-        async (event: React.KeyboardEvent<HTMLInputElement>) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                await handleAdd();
-            }
-            if (event.key === 'Escape') {
-                setIsAdding(false);
-                setNewTitle('');
-            }
-        },
-        [handleAdd],
-    );
-
-    const handleStartAdding = useCallback(() => {
-        setIsAdding(true);
-        setTimeout(() => inputRef.current?.focus(), 0);
-    }, []);
+    const { isAdding, newTitle, inputRef, handleAdd, handleKeyDown, handleStartAdding, setNewTitle } =
+        useAddItem(onAdd);
 
     return isAdding ? (
         <div className={styles['new-item']}>

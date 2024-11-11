@@ -5,32 +5,14 @@ import { useCallback } from 'react';
 
 import { Column } from '@/components/column/column';
 import { AddItemButton } from '@/components/ui/add-item-button/add-item-button';
-import { useColumns } from '@/hooks/use-columns';
-import { generateId } from '@/lib/utils';
-import type { Column as ColumnType } from '@/types/column';
+import { useBoardOperations } from '@/hooks/use-board-operations';
 
 import styles from './board.module.scss';
 
 export const Board = () => {
-    const {
-        state: { columns },
-        addColumn,
-    } = useColumns();
+    const { columns, handleAddColumn } = useBoardOperations();
 
-    const handleAddColumn = useCallback(
-        async (title: string) => {
-            const newColumn: Omit<ColumnType, 'order'> = {
-                cardIds: [],
-                id: generateId('col'),
-                title,
-            };
-
-            await addColumn(newColumn);
-        },
-        [addColumn],
-    );
-
-    const handleDragEnd = useCallback((_result: DropResult) => {
+    const handleDragEnd = useCallback((_dropResult: DropResult) => {
         // Will be implemented later
     }, []);
 
