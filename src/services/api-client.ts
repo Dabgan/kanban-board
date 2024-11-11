@@ -1,5 +1,6 @@
-import type { Card, Column } from '@/types';
 import type { ApiResponse } from '@/types/api';
+import type { Card } from '@/types/card';
+import type { Column } from '@/types/column';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 

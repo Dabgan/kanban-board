@@ -6,10 +6,8 @@ import { toast } from 'react-hot-toast';
 import { useLoading } from '@/hooks/use-loading';
 import { columnsReducer } from '@/reducers/columns-reducer';
 import { apiClient } from '@/services/api-client';
-import type { Column } from '@/types';
-import type { ColumnsContextType } from '@/types/columns';
+import type { Column, ColumnsContextType } from '@/types/column';
 
-export type { ColumnsContextType };
 export const ColumnsContext = createContext<ColumnsContextType | null>(null);
 
 type ColumnsProviderProps = {

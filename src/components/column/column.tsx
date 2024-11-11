@@ -9,7 +9,8 @@ import { Input } from '@/components/ui/input/input';
 import { useCards } from '@/hooks/use-cards';
 import { useColumns } from '@/hooks/use-columns';
 import { generateId } from '@/lib/utils';
-import type { Column as ColumnType } from '@/types';
+import type { Column as ColumnType } from '@/types/column';
+
 import styles from './column.module.scss';
 
 type ColumnComponentProps = {

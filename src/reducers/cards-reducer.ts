@@ -1,5 +1,4 @@
-import type { Card } from '@/types';
-import type { CardsState } from '@/types/cards';
+import type { Card, CardsState } from '@/types/card';
 
 type CardsAction =
     | { type: 'SET_CARDS'; payload: Card[] }

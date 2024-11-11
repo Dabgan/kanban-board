@@ -4,8 +4,9 @@ import { handleRouteError } from '@/lib/error-handling';
 import { readBoardData, writeBoardData } from '@/lib/json-storage';
 import { isCardRequest } from '@/lib/type-guards';
 import { validateCard } from '@/lib/validation';
-import type { BoardData, Card } from '@/types';
 import type { ApiResponse } from '@/types/api';
+import type { BoardData } from '@/types/board';
+import type { Card } from '@/types/card';
 
 export const GET = async (_request: Request, { params }: { params: { id: string } }) => {
     try {

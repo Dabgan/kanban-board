@@ -1,4 +1,5 @@
-import type { Card, Column } from '@/types';
+import type { Card } from './card';
+import type { Column } from './column';
 
 export type InitialData = {
     columns: Column[];

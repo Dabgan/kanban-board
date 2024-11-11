@@ -1,4 +1,5 @@
-import type { Card, Column } from '@/types';
+import type { Card } from '@/types/card';
+import type { Column } from '@/types/column';
 import type { ValidationResult } from '@/types/validation';
 
 const TITLE_MAX_LENGTH = 100;

@@ -1,5 +1,4 @@
-import type { Column } from '@/types';
-import type { ColumnsState } from '@/types/columns';
+import type { Column, ColumnsState } from '@/types/column';
 
 type ColumnsAction =
     | { type: 'SET_COLUMNS'; payload: Column[] }

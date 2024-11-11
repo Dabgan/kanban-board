@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
 import { useColumns } from '@/hooks/use-columns';
 import { generateId } from '@/lib/utils';
-import type { Column as ColumnType } from '@/types';
+import type { Column as ColumnType } from '@/types/column';
 
 import styles from './board.module.scss';
 

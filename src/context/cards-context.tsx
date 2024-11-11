@@ -6,8 +6,7 @@ import { toast } from 'react-hot-toast';
 import { useLoading } from '@/hooks/use-loading';
 import { cardsReducer } from '@/reducers/cards-reducer';
 import { apiClient } from '@/services/api-client';
-import type { Card } from '@/types';
-import type { CardsContextType } from '@/types/cards';
+import type { Card, CardsContextType } from '@/types/card';
 
 export const CardsContext = createContext<CardsContextType | null>(null);
 

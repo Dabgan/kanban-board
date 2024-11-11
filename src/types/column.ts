@@ -1,4 +1,9 @@
-import type { Column } from '@/types';
+export type Column = {
+    id: string;
+    title: string;
+    order: number;
+    cardIds: string[];
+};
 
 export type ColumnsState = {
     columns: Column[];

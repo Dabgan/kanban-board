@@ -4,8 +4,9 @@ import { handleRouteError } from '@/lib/error-handling';
 import { readBoardData, writeBoardData } from '@/lib/json-storage';
 import { isColumnRequestWithoutOrder } from '@/lib/type-guards';
 import { validateColumn } from '@/lib/validation';
-import type { BoardData, Column } from '@/types';
 import type { ApiResponse } from '@/types/api';
+import type { BoardData } from '@/types/board';
+import type { Column } from '@/types/column';
 
 export const GET = async (_request: Request) => {
     try {

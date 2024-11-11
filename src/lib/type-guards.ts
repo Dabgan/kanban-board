@@ -1,4 +1,5 @@
-import type { Card, Column } from '@/types';
+import type { Card } from '@/types/card';
+import type { Column } from '@/types/column';
 
 type PropertyType = 'string' | 'number' | 'array';
 
