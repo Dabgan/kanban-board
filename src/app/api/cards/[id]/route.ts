@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { handleRouteError } from '@/lib/error-handling';
 import { readBoardData, writeBoardData } from '@/lib/json-storage';
-import { isCardRequest } from '@/lib/type-guards';
+import { isCard } from '@/lib/type-guards';
 import { validateCard } from '@/lib/validation';
 import type { ApiResponse } from '@/types/api';
 import type { BoardData } from '@/types/board';
@@ -33,7 +33,7 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
     try {
         const requestData = await request.json();
 
-        if (!isCardRequest(requestData)) {
+        if (!isCard(requestData)) {
             return handleRouteError<Card>(new Error('Invalid card data'), {
                 defaultMessage: 'Invalid card data',
                 status: 400,

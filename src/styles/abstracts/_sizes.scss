@@ -6,9 +6,11 @@ $column-width: 250px;
 
 // Base units
 $spacing-unit: 4px;
-$spacing-sm: $spacing-unit * 2; // 8px
+$spacing-xs: $spacing-unit * 2; // 8px
+$spacing-sm: $spacing-unit * 3; // 12px
 $spacing-md: $spacing-unit * 4; // 16px
 $spacing-lg: $spacing-unit * 6; // 24px
+$spacing-xl: $spacing-unit * 8; // 32px
 
 // Border radius
 $radius-sm: 4px;

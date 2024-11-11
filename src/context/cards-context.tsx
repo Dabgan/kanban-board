@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useReducer, useMemo } from 'react';
+import { createContext, useCallback, useMemo, useReducer } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useLoading } from '@/hooks/use-loading';
@@ -68,10 +68,7 @@ export const CardsProvider = ({ children, initialCards }: CardsProviderProps) =>
                 if (response.error ?? !response.data) {
                     dispatch({ type: 'SET_CARDS', payload: state.cards });
                     toast.error(response.error?.message ?? 'Failed to update card');
-                    return;
                 }
-
-                toast.success('Card updated successfully');
             } catch (error) {
                 dispatch({ type: 'SET_CARDS', payload: state.cards });
                 toast.error('Failed to update card');

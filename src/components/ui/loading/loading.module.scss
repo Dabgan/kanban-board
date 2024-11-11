@@ -1,0 +1,24 @@
+@use '@/styles/abstracts/sizes';
+
+.container {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    width: 100%;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    border: 6px solid var(--color-surface-hover);
+    border-radius: 50%;
+    border-top-color: var(--color-accent);
+    height: calc(sizes.$spacing-xl * 3);
+    width: calc(sizes.$spacing-xl * 3);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

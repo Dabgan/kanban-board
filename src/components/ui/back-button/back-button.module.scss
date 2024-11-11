@@ -1,0 +1,20 @@
+@use '@/styles/abstracts/sizes';
+@use '@/styles/utilities/accessibility';
+
+.button {
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-accent);
+    border-radius: sizes.$radius-sm;
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: sizes.$spacing-sm sizes.$spacing-md;
+    transition: all 0.2s ease;
+
+    @extend %focus-outline;
+
+    &:hover {
+        background-color: var(--color-surface-hover);
+        border-color: var(--color-accent-hover);
+    }
+}

@@ -1,0 +1,101 @@
+@use '@/styles/abstracts/sizes';
+@use '@/styles/utilities/accessibility';
+
+.edit-container {
+    display: flex;
+    flex-direction: column;
+    gap: sizes.$spacing-sm;
+    width: 100%;
+}
+
+.content {
+    @extend %focus-outline;
+
+    background: none;
+    border: none;
+    border-radius: sizes.$radius-sm;
+    color: var(--color-text);
+    cursor: pointer;
+    margin: 0;
+    padding: sizes.$spacing-sm;
+    text-align: left;
+    transition: all 0.2s ease;
+    width: 100%;
+    display: flex;
+
+    &.title {
+        font-size: 2rem;
+        font-weight: 600;
+        padding: sizes.$spacing-md;
+
+        h1,
+        h2 {
+            font-size: inherit;
+            font-weight: inherit;
+            margin: 0;
+        }
+    }
+
+    &.description {
+        background-color: var(--color-surface-hover);
+        border: 2px solid var(--color-accent);
+        font-size: 1rem;
+        min-height: 300px;
+        padding: sizes.$spacing-md;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        &:hover {
+            background-color: var(--color-surface);
+            border-color: var(--color-accent-hover);
+        }
+    }
+}
+
+.description-content {
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 1rem;
+}
+
+.input {
+    background-color: var(--color-surface-hover);
+    border: none;
+    border-radius: sizes.$radius-sm;
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: sizes.$spacing-md;
+    width: 100%;
+
+    &:focus {
+        outline: 2px solid var(--color-accent);
+        outline-offset: -2px;
+    }
+}
+
+.textarea {
+    background-color: var(--color-surface-hover);
+    border: 2px solid var(--color-accent);
+    border-radius: sizes.$radius-sm;
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 1rem;
+    min-height: 400px;
+    padding: sizes.$spacing-md;
+    resize: vertical;
+    width: 100%;
+
+    &:focus {
+        border-color: var(--color-accent-hover);
+        outline: none;
+    }
+}
+
+.hint {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
+}
