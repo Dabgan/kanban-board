@@ -1,0 +1,42 @@
+@use '@/styles/utilities/accessibility';
+
+.edit-container {
+    flex-grow: 1;
+    width: 100%;
+}
+
+.title {
+    @extend %focus-outline;
+
+    background: none;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    cursor: pointer;
+    flex-grow: 1;
+    font-size: inherit;
+    margin: 0;
+    padding: var(--spacing-sm);
+    text-align: left;
+    transition: all var(--transition-fast);
+    width: calc(100% - 32px);
+
+    &:hover {
+        background-color: var(--color-surface-hover);
+    }
+
+    h1,
+    h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.input {
+    width: 100%;
+}

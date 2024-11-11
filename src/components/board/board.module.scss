@@ -10,7 +10,19 @@
 
 .columns {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
+    height: 100%;
+    width: 100%;
+
+    > :last-child {
+        height: calc(40px + var(--spacing-sm) * 2);
+        width: 250px;
+
+        button {
+            height: 100%;
+            padding: var(--spacing-sm);
+        }
+    }
 }
 
 .new-column {

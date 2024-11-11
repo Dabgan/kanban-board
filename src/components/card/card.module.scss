@@ -6,6 +6,7 @@
     border-radius: var(--radius-sm);
     min-height: 80px;
     padding: var(--spacing-md);
+    width: 100%;
 
     @extend %interactive-element;
     @extend %focus-outline;
@@ -16,18 +17,16 @@
 }
 
 .link {
-    color: var(--color-text);
-    display: block;
-    height: 100%;
+    color: inherit;
     text-decoration: none;
-
-    &:hover {
-        text-decoration: none;
-    }
 }
 
 .title {
     font-size: 1rem;
     font-weight: 500;
     margin: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
