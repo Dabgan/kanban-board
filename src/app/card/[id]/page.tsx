@@ -42,7 +42,7 @@ const CardDetailPage = ({ params }: CardDetailPageProps) => {
                 <header className={styles.header}>
                     <BackButton />
                     {column && <p className={styles.column}>Column: {column.title}</p>}
-                    <DeleteButton label="Delete card" onClick={deleteCard} />
+                    <DeleteButton label="Delete card" onClick={deleteCard} variant="button" />
                 </header>
                 <div className={styles.content}>
                     <EditableContent

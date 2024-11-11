@@ -5,19 +5,42 @@
     @extend %interactive-element;
     @extend %focus-outline;
 
-    align-items: center;
-    background: none;
-    border: none;
-    border-radius: sizes.$radius-sm;
-    color: var(--color-text-secondary);
     display: flex;
-    flex-shrink: 0;
-    height: sizes.$delete-icon-size;
-    justify-content: center;
-    padding: var(--spacing-sm);
-    width: sizes.$delete-icon-size;
+    align-items: center;
+    gap: sizes.$spacing-sm;
+    transition: all 0.2s ease;
+    border-radius: sizes.$radius-sm;
+    color: var(--color-text);
 
-    &:hover {
-        color: var(--color-error);
+    &.icon {
+        background: none;
+        border: none;
+        color: var(--color-text-secondary);
+        flex-shrink: 0;
+        height: sizes.$delete-icon-size;
+        justify-content: center;
+        padding: var(--spacing-sm);
+        width: sizes.$delete-icon-size;
+
+        &:hover {
+            color: var(--color-error);
+        }
+    }
+
+    &.button {
+        background-color: var(--color-surface);
+        border: 2px solid var(--color-error);
+        font-size: 1rem;
+        padding: sizes.$spacing-sm sizes.$spacing-md;
+
+        &:hover {
+            background-color: var(--color-surface-hover);
+            border-color: rgb(255 99 99);
+        }
+
+        svg {
+            width: 12px;
+            height: 14px;
+        }
     }
 }

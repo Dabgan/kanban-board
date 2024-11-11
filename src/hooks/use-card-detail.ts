@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
@@ -17,8 +17,11 @@ export const useCardDetail = (cardId: string): [CardDetailState, CardDetailOpera
         isLoading: true,
         error: null,
     });
+    const isDeletingRef = useRef(false);
 
     useEffect(() => {
+        if (isDeletingRef.current) return;
+
         const card = cards.find((existingCard) => existingCard.id === cardId);
         if (!card) {
             setState({
@@ -74,10 +77,13 @@ export const useCardDetail = (cardId: string): [CardDetailState, CardDetailOpera
         if (!state.card) return;
 
         try {
+            isDeletingRef.current = true;
+            router.push('/');
             await removeCard(state.card.id);
             toast.success('Card deleted successfully');
-            router.push('/');
         } catch (error) {
+            isDeletingRef.current = false;
+            router.back();
             toast.error('Failed to delete card');
         }
     }, [state.card, removeCard, router]);

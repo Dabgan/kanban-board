@@ -21,6 +21,35 @@
     justify-content: space-between;
     margin: var(--spacing-md) 0;
     width: 100%;
+
+    [data-type='title'] {
+        font-size: 1rem;
+        font-weight: 500;
+        padding: sizes.$spacing-sm;
+        border: 2px solid transparent;
+        border-radius: sizes.$radius-sm;
+        transition: border-color 0.2s ease;
+        max-width: calc(100% - #{sizes.$delete-icon-size});
+        height: sizes.$input-height;
+        display: flex;
+        align-items: center;
+
+        h2 {
+            font-size: inherit;
+            font-weight: inherit;
+            margin: 0;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        &:hover,
+        &:focus {
+            border-color: var(--color-accent);
+        }
+    }
 }
 
 .content {

@@ -64,6 +64,14 @@
         border-radius: sizes.$radius-sm;
         padding: sizes.$spacing-sm;
         transition: border-color 0.2s ease;
+        font-size: 2rem;
+        font-weight: 600;
+
+        h1 {
+            font-size: inherit;
+            font-weight: inherit;
+            margin: 0;
+        }
 
         &:hover,
         &:focus {

@@ -90,14 +90,11 @@ export const CardsProvider = ({ children, initialCards }: CardsProviderProps) =>
 
                 if (response.error) {
                     dispatch({ type: 'SET_CARDS', payload: previousCards });
-                    toast.error(response.error.message);
-                    return;
+                    throw new Error(response.error.message);
                 }
-
-                toast.success('Card deleted successfully');
             } catch (error) {
                 dispatch({ type: 'SET_CARDS', payload: state.cards });
-                toast.error('Failed to delete card');
+                throw error;
             } finally {
                 setGlobalLoading(false);
             }

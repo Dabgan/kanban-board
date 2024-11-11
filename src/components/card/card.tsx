@@ -12,12 +12,20 @@ export const Card = ({ card, index }: CardComponentProps) => (
         {(provided, snapshot) => (
             <div
                 ref={provided.innerRef}
-                className={styles.card}
-                data-is-dragging={snapshot.isDragging}
+                className={styles.wrapper}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
             >
-                <Link href={`/card/${card.id}`} className={styles.link}>
+                <Link
+                    href={`/card/${card.id}`}
+                    className={styles.card}
+                    data-is-dragging={snapshot.isDragging}
+                    onClick={(e) => {
+                        if (snapshot.isDragging) {
+                            e.preventDefault();
+                        }
+                    }}
+                >
                     <h3 className={styles.title}>{card.title}</h3>
                 </Link>
             </div>

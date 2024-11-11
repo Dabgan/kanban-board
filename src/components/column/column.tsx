@@ -3,7 +3,7 @@
 import { DroppableColumn } from '@/components/column/droppable-column';
 import { AddItemButton } from '@/components/ui/add-item-button/add-item-button';
 import { DeleteButton } from '@/components/ui/delete-button/delete-button';
-import { EditableTitle } from '@/components/ui/editable-title/editable-title';
+import { EditableContent } from '@/components/ui/editable-content/editable-content';
 import { useColumnOperations } from '@/hooks/use-column-operations';
 import type { Card } from '@/types/card';
 import type { Column as ColumnType } from '@/types/column';
@@ -21,9 +21,10 @@ export const Column = ({ column, cards }: ColumnProps) => {
     return (
         <article aria-label={`Column: ${column.title}`} className={styles.column}>
             <div className={styles['title-bar']}>
-                <EditableTitle
-                    title={column.title}
+                <EditableContent
+                    content={column.title}
                     onUpdate={handleUpdateTitle}
+                    type="title"
                     tag="h2"
                     ariaLabel={`Edit ${column.title} column title`}
                 />

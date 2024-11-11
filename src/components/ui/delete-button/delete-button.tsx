@@ -6,14 +6,15 @@ import styles from './delete-button.module.scss';
 
 type DeleteButtonProps = {
     label: string;
+    variant?: 'icon' | 'button';
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const DeleteButton = ({ label, onClick, className, ...props }: DeleteButtonProps) => {
-    const buttonClassName = [styles['delete-button'], className].filter(Boolean).join(' ');
+export const DeleteButton = ({ label, variant = 'icon', onClick, className, ...props }: DeleteButtonProps) => {
+    const buttonClassName = [styles['delete-button'], styles[variant], className].filter(Boolean).join(' ');
 
     return (
         <button className={buttonClassName} onClick={onClick} aria-label={label} type="button" {...props}>
-            <span className="visually-hidden">Delete</span>
+            {variant === 'button' && <span>Delete</span>}
             <svg
                 aria-hidden="true"
                 width="14"
