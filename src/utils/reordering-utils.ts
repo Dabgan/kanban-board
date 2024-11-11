@@ -1,72 +1,76 @@
 import type { Card } from '@/types/card';
 import type { DragResult } from '@/types/dnd';
 
-export const reorderCards = (
-    allCards: Card[],
-    { sourceColumnId, sourceIndex, destinationColumnId, destinationIndex }: DragResult,
-): Card[] => {
-    // Handle same column reordering
-    if (sourceColumnId === destinationColumnId) {
-        const columnCards = allCards
-            .filter((card) => card.columnId === sourceColumnId)
-            .sort((a, b) => a.order - b.order);
+type BaseReorderArgs = {
+    allCards: Card[];
+    sourceIndex: number;
+    destinationIndex: number;
+};
 
-        const [movedCard] = columnCards.splice(sourceIndex, 1);
-        if (!movedCard) {
-            throw new Error('Card not found at source index');
-        }
+type SameColumnReorderArgs = BaseReorderArgs & {
+    columnId: string;
+};
 
-        columnCards.splice(destinationIndex, 0, movedCard);
+type CrossColumnReorderArgs = BaseReorderArgs & {
+    sourceColumnId: string;
+    destinationColumnId: string;
+};
 
-        const updatedColumnCards = columnCards.map((card, index) => ({
-            ...card,
-            order: index + 1,
-        }));
+const updateCardsOrder = (cards: Card[]): Card[] =>
+    cards.map((card, index) => ({
+        ...card,
+        order: index + 1,
+    }));
 
-        return allCards.map((card) =>
-            card.columnId === sourceColumnId
-                ? (updatedColumnCards.find((updated) => updated.id === card.id) ?? card)
-                : card,
-        );
+const reorderSameColumn = ({ allCards, columnId, sourceIndex, destinationIndex }: SameColumnReorderArgs): Card[] => {
+    const columnCards = allCards.filter((card) => card.columnId === columnId).sort((a, b) => a.order - b.order);
+
+    const [movedCard] = columnCards.splice(sourceIndex, 1);
+    if (!movedCard) {
+        throw new Error('Card not found at source index');
     }
 
-    // Handle cross-column reordering
+    columnCards.splice(destinationIndex, 0, movedCard);
+    const updatedColumnCards = updateCardsOrder(columnCards);
+
+    return allCards.map((card) =>
+        card.columnId === columnId ? (updatedColumnCards.find((updated) => updated.id === card.id) ?? card) : card,
+    );
+};
+
+const reorderBetweenColumns = ({
+    allCards,
+    sourceColumnId,
+    destinationColumnId,
+    sourceIndex,
+    destinationIndex,
+}: CrossColumnReorderArgs): Card[] => {
     const sourceCards = allCards.filter((card) => card.columnId === sourceColumnId).sort((a, b) => a.order - b.order);
 
     const destinationCards = allCards
         .filter((card) => card.columnId === destinationColumnId)
         .sort((a, b) => a.order - b.order);
 
-    // Remove card from source
     const [movedCard] = sourceCards.splice(sourceIndex, 1);
     if (!movedCard) {
         throw new Error('Card not found at source index');
     }
 
-    // Create updated card with new columnId and initial order
     const updatedMovedCard: Card = {
         ...movedCard,
         columnId: destinationColumnId,
-        order: destinationIndex + 1, // Set initial order based on destination
+        order: destinationIndex + 1,
     };
 
-    // Insert into destination and update all orders
     const updatedDestinationCards = [
         ...destinationCards.slice(0, destinationIndex),
         updatedMovedCard,
         ...destinationCards.slice(destinationIndex),
-    ].map((card, index) => ({
-        ...card,
-        order: index + 1,
-    }));
+    ];
 
-    // Update orders in source column
-    const updatedSourceCards = sourceCards.map((card, index) => ({
-        ...card,
-        order: index + 1,
-    }));
+    const updatedSourceCards = updateCardsOrder(sourceCards);
+    const updatedDestCards = updateCardsOrder(updatedDestinationCards);
 
-    // Return updated cards array
     return allCards.map((card) => {
         if (card.id === movedCard.id) {
             return updatedMovedCard;
@@ -75,8 +79,30 @@ export const reorderCards = (
             return updatedSourceCards.find((updated) => updated.id === card.id) ?? card;
         }
         if (card.columnId === destinationColumnId) {
-            return updatedDestinationCards.find((updated) => updated.id === card.id) ?? card;
+            return updatedDestCards.find((updated) => updated.id === card.id) ?? card;
         }
         return card;
+    });
+};
+
+export const reorderCards = (
+    allCards: Card[],
+    { sourceColumnId, sourceIndex, destinationColumnId, destinationIndex }: DragResult,
+): Card[] => {
+    if (sourceColumnId === destinationColumnId) {
+        return reorderSameColumn({
+            allCards,
+            columnId: sourceColumnId,
+            sourceIndex,
+            destinationIndex,
+        });
+    }
+
+    return reorderBetweenColumns({
+        allCards,
+        sourceColumnId,
+        destinationColumnId,
+        sourceIndex,
+        destinationIndex,
     });
 };
