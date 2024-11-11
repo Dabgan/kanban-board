@@ -1,20 +1,17 @@
 'use client';
 
-import { DragDropContext, type DropResult } from '@hello-pangea/dnd';
-import { useCallback } from 'react';
+import { DragDropContext } from '@hello-pangea/dnd';
 
 import { Column } from '@/components/column/column';
 import { AddItemButton } from '@/components/ui/add-item-button/add-item-button';
 import { useBoardOperations } from '@/hooks/use-board-operations';
+import { useDragAndDrop } from '@/hooks/use-drag-and-drop';
 
 import styles from './board.module.scss';
 
 export const Board = () => {
     const { columns, handleAddColumn } = useBoardOperations();
-
-    const handleDragEnd = useCallback((_dropResult: DropResult) => {
-        // Will be implemented later
-    }, []);
+    const { handleDragEnd } = useDragAndDrop();
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
