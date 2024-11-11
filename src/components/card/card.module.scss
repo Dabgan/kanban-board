@@ -1,12 +1,14 @@
+@use '@/styles/utilities/accessibility';
+
 .card {
     background-color: var(--color-surface-hover);
     border: 2px solid transparent;
     border-radius: var(--radius-sm);
-    cursor: pointer;
-    margin-bottom: var(--spacing-sm);
     min-height: 80px;
     padding: var(--spacing-md);
-    transition: border-color var(--transition-fast);
+
+    @extend %interactive-element;
+    @extend %focus-outline;
 
     &:hover {
         border-color: var(--color-accent);

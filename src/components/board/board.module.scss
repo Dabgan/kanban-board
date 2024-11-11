@@ -1,9 +1,11 @@
+@use '@/styles/utilities/accessibility';
+
 .board {
-    align-items: flex-start;
-    background-color: var(--color-background);
     display: flex;
-    min-height: 100vh;
-    padding: var(--spacing-md);
+    flex-direction: column;
+    height: 100%;
+    padding: var(--spacing-lg);
+    width: 100%;
 }
 
 .columns {

@@ -1,4 +1,6 @@
-@import 'abstracts/variables';
+@import 'abstracts';
+@import 'base';
+@import 'utilities';
 
 * {
     box-sizing: border-box;

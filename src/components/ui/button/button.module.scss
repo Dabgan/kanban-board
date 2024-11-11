@@ -1,14 +1,12 @@
+@use '@/styles/utilities/accessibility';
+
 .button {
     border: none;
     border-radius: var(--radius-md);
-    cursor: pointer;
     font-family: inherit;
-    transition: background-color var(--transition-fast);
 
-    &:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-    }
+    @extend %interactive-element;
+    @extend %focus-outline;
 }
 
 .primary {

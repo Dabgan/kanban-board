@@ -1,0 +1,31 @@
+%visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+%focus-outline {
+    &:focus {
+        outline: 2px solid var(--color-accent);
+        outline-offset: -2px;
+    }
+}
+
+%interactive-element {
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &:hover {
+        background-color: var(--color-surface-hover);
+    }
+}
+
+// Classes for direct use in HTML
+.visually-hidden {
+    @extend %visually-hidden;
+}
