@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 
 import { useCards } from '@/hooks/use-cards';
 import { reorderCards } from '@/utils/reordering-utils';
+import type { DragResult } from '@/types/dnd';
 
 export const useDragAndDrop = () => {
     const {
@@ -16,14 +17,15 @@ export const useDragAndDrop = () => {
             if (!dropResult.destination) return;
 
             try {
-                const reorderedCards = reorderCards(
-                    cards,
-                    dropResult.source.droppableId,
-                    dropResult.source.index,
-                    dropResult.destination.droppableId,
-                    dropResult.destination.index,
-                );
+                const dragResult: DragResult = {
+                    sourceColumnId: dropResult.source.droppableId,
+                    sourceIndex: dropResult.source.index,
+                    destinationColumnId: dropResult.destination.droppableId,
+                    destinationIndex: dropResult.destination.index,
+                    draggedCardId: dropResult.draggableId,
+                };
 
+                const reorderedCards = reorderCards(cards, dragResult);
                 await batchUpdateCards(reorderedCards);
             } catch (error) {
                 const errorMessage = error instanceof Error ? error.message : 'Failed to move card';

@@ -1,11 +1,9 @@
 import type { Card } from '@/types/card';
+import type { DragResult } from '@/types/dnd';
 
 export const reorderCards = (
     allCards: Card[],
-    sourceColumnId: string,
-    sourceIndex: number,
-    destinationColumnId: string,
-    destinationIndex: number,
+    { sourceColumnId, sourceIndex, destinationColumnId, destinationIndex }: DragResult,
 ): Card[] => {
     // Handle same column reordering
     if (sourceColumnId === destinationColumnId) {
