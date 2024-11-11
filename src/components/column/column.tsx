@@ -5,16 +5,18 @@ import { AddItemButton } from '@/components/ui/add-item-button/add-item-button';
 import { DeleteButton } from '@/components/ui/delete-button/delete-button';
 import { EditableTitle } from '@/components/ui/editable-title/editable-title';
 import { useColumnOperations } from '@/hooks/use-column-operations';
+import type { Card } from '@/types/card';
 import type { Column as ColumnType } from '@/types/column';
 
 import styles from './column.module.scss';
 
 type ColumnProps = {
     column: ColumnType;
+    cards: Card[];
 };
 
-export const Column = ({ column }: ColumnProps) => {
-    const { sortedColumnCards, handleUpdateTitle, handleDelete, handleAddCard } = useColumnOperations(column);
+export const Column = ({ column, cards }: ColumnProps) => {
+    const { handleUpdateTitle, handleDelete, handleAddCard } = useColumnOperations(column);
 
     return (
         <article aria-label={`Column: ${column.title}`} className={styles.column}>
@@ -27,7 +29,7 @@ export const Column = ({ column }: ColumnProps) => {
                 />
                 <DeleteButton label={`Delete ${column.title} column`} onClick={handleDelete} />
             </div>
-            <DroppableColumn columnId={column.id} columnTitle={column.title} cards={sortedColumnCards} />
+            <DroppableColumn columnId={column.id} columnTitle={column.title} cards={cards} />
             <AddItemButton
                 onAdd={handleAddCard}
                 buttonText="Add Card"

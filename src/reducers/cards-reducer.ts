@@ -26,9 +26,7 @@ export const cardsReducer = (state: CardsState, action: CardsAction): CardsState
         case 'UPDATE_CARD':
             return {
                 ...state,
-                cards: state.cards.map((existingCard) =>
-                    existingCard.id === action.payload.id ? action.payload : existingCard,
-                ),
+                cards: state.cards.map((card) => (card.id === action.payload.id ? action.payload : card)),
                 error: null,
             };
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useReducer } from 'react';
+import { createContext, useCallback, useReducer, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useLoading } from '@/hooks/use-loading';
@@ -108,5 +108,43 @@ export const CardsProvider = ({ children, initialCards }: CardsProviderProps) =>
         [state.cards, setGlobalLoading],
     );
 
-    return <CardsContext.Provider value={{ state, addCard, updateCard, deleteCard }}>{children}</CardsContext.Provider>;
+    const batchUpdateCards = useCallback(
+        async (updatedCards: Card[]) => {
+            try {
+                // Apply optimistic update
+                dispatch({ type: 'SET_CARDS', payload: updatedCards });
+
+                const response = await apiClient.cards.batchUpdate(updatedCards);
+
+                if (response.error) {
+                    dispatch({ type: 'SET_CARDS', payload: state.cards });
+                    toast.error(response.error.message);
+                    return;
+                }
+
+                if (response.data) {
+                    dispatch({ type: 'SET_CARDS', payload: response.data });
+                }
+
+                toast.success('Cards updated successfully');
+            } catch (error) {
+                dispatch({ type: 'SET_CARDS', payload: state.cards });
+                toast.error('Failed to update cards');
+            }
+        },
+        [state.cards],
+    );
+
+    const value = useMemo(
+        () => ({
+            state,
+            addCard,
+            updateCard,
+            deleteCard,
+            batchUpdateCards,
+        }),
+        [state, addCard, updateCard, deleteCard, batchUpdateCards],
+    );
+
+    return <CardsContext.Provider value={value}>{children}</CardsContext.Provider>;
 };

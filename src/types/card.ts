@@ -21,4 +21,5 @@ export type CardsContextType = {
     addCard: (card: Omit<Card, 'order'>) => Promise<void>;
     updateCard: (cardId: string, updatedCard: Card) => Promise<void>;
     deleteCard: (cardId: string) => Promise<void>;
+    batchUpdateCards: (updatedCards: Card[]) => Promise<void>;
 };

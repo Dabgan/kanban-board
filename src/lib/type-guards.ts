@@ -40,7 +40,7 @@ const columnBaseValidations: PropertyValidation[] = [
     { key: 'cardIds', type: 'array' },
 ];
 
-export const isCardRequest = (data: unknown): data is Card => {
+export const isCard = (data: unknown): data is Card => {
     if (!baseValidation(data)) return false;
     return validateProperties(data, [...cardBaseValidations, { key: 'order', type: 'number' }]);
 };

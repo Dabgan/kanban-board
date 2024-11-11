@@ -45,6 +45,12 @@ export const apiClient = {
             fetchApi<undefined>(`/api/cards/${id}`, {
                 method: 'DELETE',
             }),
+
+        batchUpdate: (cards: Card[]) =>
+            fetchApi<Card[]>('/api/cards/batch', {
+                method: 'PUT',
+                body: cards,
+            }),
     },
     columns: {
         getAll: () => fetchApi<Column[]>('/api/columns'),
