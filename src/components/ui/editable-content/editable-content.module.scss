@@ -1,31 +1,27 @@
 @use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/component-sizes';
+@use '@/styles/abstracts/colors';
 @use '@/styles/utilities/accessibility';
 
 .edit-container {
-    display: flex;
-    flex-direction: column;
-    gap: sizes.$spacing-sm;
+    @include mixins.flex(column, flex-start, stretch, sizes.$spacing-sm);
     width: 100%;
 }
 
 .content {
     @extend %focus-outline;
-
-    background: none;
-    border: none;
-    border-radius: sizes.$radius-sm;
-    color: var(--color-text);
+    @include mixins.surface-element;
+    @include mixins.flex;
     cursor: pointer;
     margin: 0;
     padding: sizes.$spacing-sm;
     text-align: left;
-    transition: all 0.2s ease;
     width: 100%;
-    display: flex;
 
     &.title {
-        font-size: 1rem;
-        font-weight: 500;
+        font-size: component-sizes.$title-font-size;
+        font-weight: component-sizes.$title-font-weight;
         padding: sizes.$spacing-sm;
 
         h1,
@@ -35,20 +31,21 @@
             margin: 0;
         }
     }
+}
 
-    &.description {
-        background-color: var(--color-surface-hover);
-        border: 2px solid var(--color-accent);
-        font-size: 1rem;
-        min-height: 300px;
-        padding: sizes.$spacing-md;
-        align-items: flex-start;
-        justify-content: flex-start;
+button.content.description {
+    background-color: colors.$color-surface;
+    border: component-sizes.$border-width solid colors.$color-accent;
+    font-size: component-sizes.$description-font-size;
+    min-height: component-sizes.$description-min-height;
+    padding: sizes.$spacing-md;
+    align-items: flex-start;
+    justify-content: flex-start;
+    @include mixins.transition;
 
-        &:hover {
-            background-color: var(--color-surface);
-            border-color: var(--color-accent-hover);
-        }
+    &:hover {
+        background-color: colors.$color-surface-hover;
+        border-color: colors.$color-accent-hover;
     }
 }
 
@@ -56,46 +53,37 @@
     text-align: left;
     white-space: pre-wrap;
     word-break: break-word;
-    font-size: 1rem;
+    font-size: component-sizes.$description-font-size;
 }
 
 .input {
-    background-color: var(--color-surface-hover);
-    border: none;
-    border-radius: sizes.$radius-sm;
-    color: var(--color-text);
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 500;
-    padding: sizes.$spacing-sm;
-    width: 100%;
-
-    &:focus {
-        outline: 2px solid var(--color-accent);
-        outline-offset: -2px;
-    }
+    @include mixins.input-base;
 }
 
 .textarea {
-    background-color: var(--color-surface-hover);
-    border: 2px solid var(--color-accent);
-    border-radius: sizes.$radius-sm;
-    color: var(--color-text);
-    font-family: inherit;
-    font-size: 1rem;
-    min-height: 400px;
+    @include mixins.input-base;
+    background-color: colors.$color-surface;
+    border: component-sizes.$border-width solid colors.$color-accent;
+    min-height: component-sizes.$description-min-height;
     padding: sizes.$spacing-md;
     resize: vertical;
-    width: 100%;
+    font-family: inherit;
+    @include mixins.transition;
+
+    &:hover {
+        background-color: colors.$color-surface-hover;
+        border-color: colors.$color-accent-hover;
+    }
 
     &:focus {
-        border-color: var(--color-accent-hover);
+        background-color: colors.$color-surface;
+        border-color: colors.$color-accent-hover;
         outline: none;
     }
 }
 
 .hint {
-    color: var(--color-text-secondary);
-    font-size: 0.875rem;
+    color: colors.$color-text-secondary;
+    font-size: component-sizes.$error-font-size;
     margin: 0;
 }

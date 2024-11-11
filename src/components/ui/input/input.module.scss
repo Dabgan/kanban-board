@@ -1,29 +1,24 @@
+@use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/component-sizes';
+@use '@/styles/abstracts/colors';
 @use '@/styles/utilities/accessibility';
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
+    @include mixins.flex(column, flex-start, stretch, sizes.$spacing-xs);
     width: 100%;
 }
 
 .input {
-    background-color: var(--color-surface-hover);
-    border: none;
-    border-radius: var(--radius-sm);
-    color: var(--color-text);
-    font-size: 1rem;
-    padding: var(--spacing-sm);
-    width: 100%;
-
-    @extend %focus-outline;
+    @include mixins.input-base;
+    @include mixins.transition;
 
     &.error {
-        outline: 2px solid var(--color-error);
+        outline: component-sizes.$border-width solid colors.$color-error;
     }
 }
 
 .error-message {
-    color: var(--color-error);
-    font-size: 0.875rem;
+    color: colors.$color-error;
+    font-size: component-sizes.$error-font-size;
 }

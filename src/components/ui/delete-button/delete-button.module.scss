@@ -1,46 +1,33 @@
 @use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/colors';
 @use '@/styles/utilities/accessibility';
 
 .delete-button {
-    @extend %interactive-element;
     @extend %focus-outline;
-
+    background: none;
+    border: none;
+    color: colors.$color-text;
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: sizes.$spacing-sm;
-    transition: all 0.2s ease;
-    border-radius: sizes.$radius-sm;
-    color: var(--color-text);
+    padding: sizes.$spacing-sm;
+    transition: color 0.2s ease;
 
-    &.icon {
-        background: none;
-        border: none;
-        color: var(--color-text-secondary);
-        flex-shrink: 0;
-        height: sizes.$delete-icon-size;
-        justify-content: center;
-        padding: var(--spacing-sm);
-        width: sizes.$delete-icon-size;
-
-        &:hover {
-            color: var(--color-error);
-        }
+    &:hover {
+        color: colors.$color-error;
     }
 
     &.button {
-        background-color: var(--color-surface);
-        border: 2px solid var(--color-error);
-        font-size: 1rem;
+        background-color: colors.$color-error;
+        border-radius: sizes.$radius-sm;
+        color: colors.$color-text;
         padding: sizes.$spacing-sm sizes.$spacing-md;
 
         &:hover {
-            background-color: var(--color-surface-hover);
-            border-color: rgb(255 99 99);
-        }
-
-        svg {
-            width: 12px;
-            height: 14px;
+            background-color: darken(colors.$color-error, 10%);
+            color: colors.$color-text;
         }
     }
 }

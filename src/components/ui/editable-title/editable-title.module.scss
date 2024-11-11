@@ -1,5 +1,8 @@
-@use '@/styles/utilities/accessibility';
 @use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/component-sizes';
+@use '@/styles/abstracts/colors';
+@use '@/styles/utilities/accessibility';
 
 .edit-container {
     flex-grow: 1;
@@ -8,22 +11,16 @@
 
 .title {
     @extend %focus-outline;
-
     background: none;
     border: none;
-    border-radius: sizes.$radius-sm;
-    color: var(--color-text);
+    color: colors.$color-text;
     cursor: pointer;
-    font-size: inherit;
-    margin: 0;
-    padding: var(--spacing-sm);
+    font-family: inherit;
+    padding: sizes.$spacing-sm;
     text-align: left;
-    transition: all var(--transition-fast);
-    width: calc(100% - #{sizes.$delete-icon-size});
-
-    &:hover {
-        background-color: var(--color-surface-hover);
-    }
+    width: 100%;
+    @include mixins.interactive-border(component-sizes.$border-width);
+    border-radius: sizes.$radius-sm;
 
     h1,
     h2 {
@@ -31,9 +28,7 @@
         font-weight: inherit;
         margin: 0;
         max-width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        @include mixins.text-truncate;
     }
 }
 

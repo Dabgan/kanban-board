@@ -1,0 +1,22 @@
+@use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/colors';
+
+.content {
+    @include mixins.flex(column, flex-start, stretch);
+    flex-grow: 1;
+    margin-bottom: sizes.$spacing-md;
+    min-height: sizes.$spacing-unit;
+    width: 100%;
+
+    &[data-is-dragging-over='true'] {
+        background-color: colors.$color-surface-hover;
+        border-radius: sizes.$radius-sm;
+    }
+}
+
+.cards {
+    @include mixins.flex(column, flex-start, stretch, sizes.$spacing-md);
+    min-height: sizes.$card-min-height;
+    width: 100%;
+}

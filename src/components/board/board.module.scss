@@ -1,18 +1,20 @@
 @use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/component-sizes';
+@use '@/styles/abstracts/colors';
 
 .board {
-    display: flex;
-    flex-direction: column;
+    @include mixins.flex(column);
     height: 100%;
-    padding: var(--spacing-lg);
+    padding: sizes.$spacing-lg;
     width: 100%;
 }
 
 .columns {
-    display: flex;
-    gap: var(--spacing-lg);
+    @include mixins.flex(row, flex-start, flex-start, sizes.$spacing-lg);
     height: 100%;
     width: 100%;
+    overflow-x: auto;
 
     > :last-child {
         height: sizes.$input-height;
@@ -20,7 +22,7 @@
 
         button {
             height: 100%;
-            padding: var(--spacing-sm);
+            padding: sizes.$spacing-sm;
         }
     }
 }

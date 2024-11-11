@@ -1,0 +1,22 @@
+@use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/colors';
+
+.overlay {
+    @include mixins.flex(row, center, center);
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 100;
+}
+
+.modal {
+    background-color: colors.$color-surface;
+    border-radius: sizes.$radius-md;
+    max-width: 90%;
+    padding: sizes.$spacing-lg;
+    width: 500px;
+}

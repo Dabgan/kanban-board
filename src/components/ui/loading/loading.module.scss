@@ -1,20 +1,21 @@
 @use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/colors';
 
 .container {
-    align-items: center;
-    display: flex;
+    @include mixins.flex(column, center, center);
     height: 100vh;
-    justify-content: center;
     width: 100%;
+    background-color: colors.$color-background;
 }
 
 .spinner {
     animation: spin 1s linear infinite;
-    border: 6px solid var(--color-surface-hover);
+    border: 4px solid colors.$color-surface-dark;
     border-radius: 50%;
-    border-top-color: var(--color-accent);
-    height: calc(sizes.$spacing-xl * 3);
-    width: calc(sizes.$spacing-xl * 3);
+    border-top-color: colors.$color-accent;
+    height: 40px;
+    width: 40px;
 }
 
 @keyframes spin {

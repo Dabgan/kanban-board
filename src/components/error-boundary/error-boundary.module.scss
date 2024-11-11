@@ -1,0 +1,23 @@
+@use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/colors';
+@use '@/styles/abstracts/component-sizes';
+
+.container {
+    @include mixins.flex(column, center, center, sizes.$spacing-lg);
+    height: 100vh;
+    padding: sizes.$spacing-lg;
+    width: 100%;
+}
+
+.message {
+    color: colors.$color-error;
+    font-size: component-sizes.$error-font-size;
+    text-align: center;
+}
+
+.button {
+    @include mixins.button-base;
+    font-size: component-sizes.$title-font-size;
+    padding: sizes.$spacing-sm sizes.$spacing-md;
+}

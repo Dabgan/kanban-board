@@ -1,7 +1,41 @@
-.new-item {
+@use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/component-sizes';
+@use '@/styles/abstracts/colors';
+@use '@/styles/utilities/accessibility';
+
+.container {
+    @include mixins.flex(column, flex-start, stretch, sizes.$spacing-sm);
     width: 100%;
 }
 
-.add-button {
+.button {
+    @include mixins.button-base;
+    @extend %focus-outline;
+    font-size: component-sizes.$title-font-size;
+    padding: sizes.$spacing-sm sizes.$spacing-md;
     width: 100%;
+    background-color: colors.$color-surface;
+    border-color: colors.$color-accent;
+
+    &:hover {
+        background-color: colors.$color-surface-hover;
+        border-color: colors.$color-accent-hover;
+    }
+}
+
+.input {
+    @include mixins.input-base;
+    background-color: colors.$color-surface;
+    border-color: colors.$color-accent;
+
+    &:hover {
+        background-color: colors.$color-surface-hover;
+        border-color: colors.$color-accent-hover;
+    }
+
+    &:focus {
+        background-color: colors.$color-surface;
+        border-color: colors.$color-accent-hover;
+    }
 }

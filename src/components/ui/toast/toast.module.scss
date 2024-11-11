@@ -1,0 +1,22 @@
+@use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/colors';
+
+.toast {
+    @include mixins.flex(row, flex-start, center, sizes.$spacing-sm);
+    background-color: colors.$color-surface-dark;
+    border-radius: sizes.$radius-md;
+    color: colors.$color-text;
+    padding: sizes.$spacing-md;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.success {
+    border-left: 4px solid colors.$color-success;
+}
+
+.error {
+    border-left: 4px solid colors.$color-error;
+}
