@@ -19,8 +19,9 @@
     {
       "cardIds": [],
       "id": "col-1731268200796-xu7mal",
-      "title": "Too long header nameToo long header nameToo long header name",
-      "order": 3
+      "title": "Too long header name Too long header name Too long header name",
+      "order": 3,
+      "description": ""
     }
   ],
   "cards": [
@@ -46,46 +47,18 @@
       "order": 1
     },
     {
-      "id": "card-1731267074895-a3tjta",
-      "title": "new ticket!",
+      "id": "card-1731268471446-qowj8g",
+      "title": "Too long header name Too long header name Too long header name",
       "description": "",
-      "columnId": "col-1731265844900-xzcizs",
+      "columnId": "col-1731268200796-xu7mal",
       "order": 1
     },
     {
-      "id": "card-1731267079496-od2mwg",
-      "title": "some new ticket!",
-      "description": "",
-      "columnId": "col-1731265844900-xzcizs",
-      "order": 2
-    },
-    {
-      "id": "card-1731267098413-dnialc",
-      "title": "nowy ticket",
-      "description": "",
-      "columnId": "col-3",
-      "order": 2
-    },
-    {
-      "id": "card-1731267110638-n4tojv",
-      "title": "fwesdcx",
+      "id": "card-1731443483977-1sqczi",
+      "title": "Work on tech assigment",
       "description": "",
       "columnId": "col-2",
       "order": 1
-    },
-    {
-      "id": "card-1731268471446-qowj8g",
-      "title": "Too long header nameToo long header nameToo long header name",
-      "description": "",
-      "columnId": "col-1731268200796-xu7mal",
-      "order": 1
-    },
-    {
-      "id": "card-1731268477158-03ajcs",
-      "title": "new card",
-      "description": "",
-      "columnId": "col-1731268200796-xu7mal",
-      "order": 2
     }
   ]
 }

@@ -17,11 +17,11 @@ const setup = () => {
 
     const view = render(
         <EditableContent
-            content="Initial Content"
-            onUpdate={mockUpdateContent}
-            type="title"
-            tag="h2"
             ariaLabel="Edit title"
+            content="Initial Content"
+            tag="h2"
+            type="title"
+            onUpdate={mockUpdateContent}
         />,
     );
 

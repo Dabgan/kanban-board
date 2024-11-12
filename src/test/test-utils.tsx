@@ -1,11 +1,11 @@
-import { render, type RenderOptions } from '@testing-library/react';
 import { DragDropContext } from '@hello-pangea/dnd';
+import { type RenderOptions, render } from '@testing-library/react';
 import type { PropsWithChildren } from 'react';
 
 import { CardsProvider } from '@/context/cards-context';
 import { ColumnsProvider } from '@/context/columns-context';
-import { LoadingProvider } from '@/context/loading-context';
 import { InitialDataProvider } from '@/context/initial-data-context';
+import { LoadingProvider } from '@/context/loading-context';
 import type { Card } from '@/types/card';
 import type { Column } from '@/types/column';
 

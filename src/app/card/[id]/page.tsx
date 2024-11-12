@@ -41,24 +41,24 @@ const CardDetailPage = ({ params }: CardDetailPageProps) => {
             <div className={styles['card-container']}>
                 <header className={styles.header}>
                     <BackButton />
-                    {column && <p className={styles.column}>Column: {column.title}</p>}
-                    <DeleteButton label="Delete card" onClick={deleteCard} variant="button" />
+                    {column ? <p className={styles.column}>Column: {column.title}</p> : null}
+                    <DeleteButton label="Delete card" variant="button" onClick={deleteCard} />
                 </header>
                 <div className={styles.content}>
                     <EditableContent
-                        content={card.title}
-                        onUpdate={updateTitle}
-                        type="title"
-                        tag="h1"
                         ariaLabel="Edit card title"
+                        content={card.title}
                         placeholder="Add title..."
+                        tag="h1"
+                        type="title"
+                        onUpdate={updateTitle}
                     />
                     <EditableContent
-                        content={card.description ?? ''}
-                        onUpdate={updateDescription}
-                        type="description"
                         ariaLabel="Edit card description"
+                        content={card.description ?? ''}
                         placeholder="Add description..."
+                        type="description"
+                        onUpdate={updateDescription}
                     />
                 </div>
             </div>

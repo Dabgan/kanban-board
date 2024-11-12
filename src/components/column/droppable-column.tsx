@@ -6,6 +6,7 @@ import { Card } from '@/components/card/card';
 import type { Card as CardType } from '@/types/card';
 
 import styles from './column.module.scss';
+
 type DroppableColumnProps = {
     columnId: string;
     columnTitle: string;

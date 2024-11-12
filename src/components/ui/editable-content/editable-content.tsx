@@ -1,9 +1,9 @@
 'use client';
 
-import { useEditableContent } from '@/hooks/use-editable-content';
 import { ErrorMessage } from '@/components/ui/error-message/error-message';
-import { combineClassNames } from '@/utils/style-utils';
+import { useEditableContent } from '@/hooks/use-editable-content';
 import type { EditableContentProps } from '@/types/editable-content';
+import { combineClassNames } from '@/utils/style-utils';
 
 import styles from './editable-content.module.scss';
 
@@ -36,27 +36,27 @@ export const EditableContent = ({
                             ref={refs.textareaRef}
                             aria-label={ariaLabel}
                             className={combineClassNames(styles.textarea, state.validationError && styles.error)}
+                            rows={4}
                             value={state.currentContent}
                             onBlur={handlers.handleBlur}
                             onChange={handlers.handleChange}
                             onKeyDown={handlers.handleKeyDown}
-                            rows={4}
                         />
                         <p className={styles.hint}>Press Ctrl+Enter to save, Esc to cancel</p>
                     </>
                 )}
-                {state.validationError && <ErrorMessage message={state.validationError} />}
+                {state.validationError ? <ErrorMessage message={state.validationError} /> : null}
             </div>
         );
     }
 
     return (
         <button
-            className={combineClassNames(styles.content, styles[type])}
-            onClick={handlers.handleContentClick}
-            type="button"
             aria-label={ariaLabel}
+            className={combineClassNames(styles.content, styles[type])}
             data-type={type}
+            type="button"
+            onClick={handlers.handleContentClick}
         >
             {type === 'title' ? (
                 <Tag>{content || placeholder}</Tag>

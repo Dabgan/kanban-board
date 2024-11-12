@@ -8,7 +8,7 @@ export const BackButton = () => {
     const router = useRouter();
 
     return (
-        <button onClick={() => router.back()} className={styles.button} aria-label="Go back">
+        <button aria-label="Go back" className={styles.button} type="button" onClick={() => router.back()}>
             Back to board
         </button>
     );

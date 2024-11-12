@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useCards } from '@/hooks/use-cards';
-import type { CardDetailState, CardDetailOperations } from '@/types/card-detail';
+import type { CardDetailOperations, CardDetailState } from '@/types/card-detail';
 
 export const useCardDetail = (cardId: string): [CardDetailState, CardDetailOperations] => {
     const router = useRouter();

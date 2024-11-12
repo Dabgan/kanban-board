@@ -13,14 +13,14 @@ export const DeleteButton = ({ label, variant = 'icon', onClick, className, ...p
     const buttonClassName = [styles['delete-button'], styles[variant], className].filter(Boolean).join(' ');
 
     return (
-        <button className={buttonClassName} onClick={onClick} aria-label={label} type="button" {...props}>
+        <button aria-label={label} className={buttonClassName} type="button" onClick={onClick} {...props}>
             {variant === 'button' && <span>Delete</span>}
             <svg
                 aria-hidden="true"
-                width="14"
+                fill="none"
                 height="16"
                 viewBox="0 0 14 16"
-                fill="none"
+                width="14"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <path

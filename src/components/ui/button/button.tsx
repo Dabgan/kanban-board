@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes } from 'react';
+
 import { combineClassNames } from '@/utils/style-utils';
 
 import styles from './button.module.scss';

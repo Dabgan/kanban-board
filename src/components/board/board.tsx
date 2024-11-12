@@ -20,14 +20,14 @@ export const Board = () => {
                 <h1 className="visually-hidden">Kanban Board</h1>
                 <section aria-label="Kanban board columns" className={styles.columns}>
                     {columns.map((column) => (
-                        <Column key={column.id} column={column} cards={getSortedColumnCards(cards, column.id)} />
+                        <Column key={column.id} cards={getSortedColumnCards(cards, column.id)} column={column} />
                     ))}
                     <AddItemButton
-                        onAdd={handleAddColumn}
-                        buttonText="Add Column"
-                        placeholder="Enter column title..."
                         buttonAriaLabel="Add new column to board"
+                        buttonText="Add Column"
                         inputAriaLabel="New column title"
+                        placeholder="Enter column title..."
+                        onAdd={handleAddColumn}
                     />
                 </section>
             </main>

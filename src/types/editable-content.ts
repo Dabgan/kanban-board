@@ -1,4 +1,4 @@
-import type { KeyboardEvent, ChangeEvent, RefObject } from 'react';
+import type { ChangeEvent, KeyboardEvent, RefObject } from 'react';
 
 export type ContentType = 'title' | 'description';
 

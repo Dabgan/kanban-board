@@ -3,8 +3,8 @@ import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useCards } from '@/hooks/use-cards';
-import { reorderCards } from '@/utils/reordering-utils';
 import type { DragResult } from '@/types/dnd';
+import { reorderCards } from '@/utils/reordering-utils';
 
 export const useDragAndDrop = () => {
     const {

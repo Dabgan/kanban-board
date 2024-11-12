@@ -14,15 +14,15 @@ export const Card = ({ card, index }: CardComponentProps) => (
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
+                aria-label={`${card.title} card`}
                 className={styles.wrapper}
                 role="button"
                 tabIndex={0}
-                aria-label={`${card.title} card`}
             >
                 <Link
-                    href={`/card/${card.id}`}
                     className={styles.card}
                     data-is-dragging={snapshot.isDragging}
+                    href={`/card/${card.id}`}
                     onClick={(e) => {
                         if (snapshot.isDragging) {
                             e.preventDefault();

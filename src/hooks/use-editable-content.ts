@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
-import { hasSpecialCharacters } from '@/utils/sanitization';
+
 import type { EditableContentProps, UseEditableContentReturn } from '@/types/editable-content';
+import { hasSpecialCharacters } from '@/utils/sanitization';
 
 export const useEditableContent = (
     content: string,

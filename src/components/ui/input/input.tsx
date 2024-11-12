@@ -1,8 +1,9 @@
 import { type ChangeEvent, forwardRef, useState } from 'react';
-import { hasSpecialCharacters } from '@/utils/sanitization';
-import { combineClassNames } from '@/utils/style-utils';
+
 import { ErrorMessage } from '@/components/ui/error-message/error-message';
 import type { InputProps, ValidationState } from '@/types/input';
+import { hasSpecialCharacters } from '@/utils/sanitization';
+import { combineClassNames } from '@/utils/style-utils';
 
 import styles from './input.module.scss';
 
@@ -45,19 +46,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         const errorMessage = error ?? validationState.error;
 
         return (
-            <div role="group" aria-labelledby={id ? `${id}-label` : undefined}>
+            <div aria-labelledby={id ? `${id}-label` : undefined} role="group">
                 <input
                     ref={ref}
                     aria-invalid={Boolean(errorMessage)}
                     aria-label={ariaLabel}
                     className={inputClassName}
                     id={id}
-                    onChange={handleChange}
-                    onBlur={onBlur}
                     type={type}
+                    onBlur={onBlur}
+                    onChange={handleChange}
                     {...props}
                 />
-                {errorMessage && <ErrorMessage message={errorMessage} />}
+                {errorMessage ? <ErrorMessage message={errorMessage} /> : null}
             </div>
         );
     },
