@@ -12,9 +12,12 @@ export const Card = ({ card, index }: CardComponentProps) => (
         {(provided, snapshot) => (
             <div
                 ref={provided.innerRef}
-                className={styles.wrapper}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
+                className={styles.wrapper}
+                role="button"
+                tabIndex={0}
+                aria-label={`${card.title} card`}
             >
                 <Link
                     href={`/card/${card.id}`}
