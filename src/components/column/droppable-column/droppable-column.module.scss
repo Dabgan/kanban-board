@@ -4,6 +4,7 @@
 
 .content {
     @include mixins.flex(column, flex-start, stretch);
+
     flex-grow: 1;
     margin-bottom: sizes.$spacing-md;
     min-height: sizes.$spacing-unit;
@@ -17,6 +18,7 @@
 
 .cards {
     @include mixins.flex(column, flex-start, stretch, sizes.$spacing-md);
+
     min-height: sizes.$card-min-height;
     width: 100%;
 }

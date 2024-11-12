@@ -5,10 +5,11 @@
 
 .container {
     @include mixins.flex(column, center, center);
+
+    background-color: colors.$color-background;
     min-height: 100vh;
     padding: sizes.$spacing-lg;
     width: 100%;
-    background-color: colors.$color-background;
 }
 
 .card-container {
@@ -21,6 +22,7 @@
 
 .header {
     @include mixins.flex(row, space-between, center, sizes.$spacing-md);
+
     margin-bottom: sizes.$spacing-lg;
 }
 
@@ -28,23 +30,24 @@
     @include mixins.flex(column, flex-start, stretch, sizes.$spacing-lg);
 
     [data-type='description'] {
-        min-height: component-sizes.$description-min-height;
         background-color: colors.$color-surface;
         border: component-sizes.$border-width solid colors.$color-accent;
+        min-height: component-sizes.$description-min-height;
 
         &[contenteditable='true'] {
-            min-height: component-sizes.$description-min-height;
             background-color: colors.$color-surface;
             border-color: colors.$color-accent;
+            min-height: component-sizes.$description-min-height;
         }
     }
 
     [data-type='title'] {
         @include mixins.interactive-border(component-sizes.$border-width);
+
         border-radius: sizes.$radius-sm;
-        padding: sizes.$spacing-sm;
         font-size: component-sizes.$heading-font-size;
         font-weight: component-sizes.$heading-font-weight;
+        padding: sizes.$spacing-sm;
 
         h1 {
             font-size: inherit;
@@ -56,6 +59,7 @@
 
 .error {
     @include mixins.flex(column, center, center, sizes.$spacing-lg);
+
     height: 100vh;
     padding: sizes.$spacing-lg;
     width: 100%;
@@ -69,8 +73,8 @@
 
 .column {
     color: colors.$color-text-secondary;
+    flex: 1;
     font-size: component-sizes.$title-font-size;
     margin: 0;
     text-align: center;
-    flex: 1;
 }

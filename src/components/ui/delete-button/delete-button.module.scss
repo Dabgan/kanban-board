@@ -1,33 +1,43 @@
 @use '@/styles/abstracts/sizes';
 @use '@/styles/abstracts/mixins';
 @use '@/styles/abstracts/colors';
+@use '@/styles/abstracts/component-sizes';
 @use '@/styles/utilities/accessibility';
 
 .delete-button {
     @extend %focus-outline;
+
+    align-items: center;
     background: none;
     border: none;
     color: colors.$color-text;
     cursor: pointer;
     display: flex;
-    align-items: center;
     gap: sizes.$spacing-sm;
     padding: sizes.$spacing-sm;
-    transition: color 0.2s ease;
+    @include mixins.transition;
 
     &:hover {
         color: colors.$color-error;
     }
 
     &.button {
-        background-color: colors.$color-error;
+        @include mixins.button-base;
+
+        background-color: colors.$color-surface;
+        border-color: colors.$color-error;
         border-radius: sizes.$radius-sm;
         color: colors.$color-text;
         padding: sizes.$spacing-sm sizes.$spacing-md;
 
         &:hover {
-            background-color: darken(colors.$color-error, 10%);
-            color: colors.$color-text;
+            background-color: colors.$color-surface-hover;
+            border-color: darken(colors.$color-error, 10%);
+        }
+
+        svg {
+            height: sizes.$spacing-md;
+            width: sizes.$spacing-md;
         }
     }
 }

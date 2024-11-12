@@ -6,6 +6,7 @@
 
 .wrapper {
     @include mixins.flex(column, flex-start, stretch, sizes.$spacing-xs);
+
     width: 100%;
 }
 

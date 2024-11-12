@@ -5,6 +5,7 @@
 
 .board {
     @include mixins.flex(column);
+
     height: 100%;
     padding: sizes.$spacing-lg;
     width: 100%;
@@ -12,9 +13,10 @@
 
 .columns {
     @include mixins.flex(row, flex-start, flex-start, sizes.$spacing-lg);
+
     height: 100%;
-    width: 100%;
     overflow-x: auto;
+    width: 100%;
 
     > :last-child {
         height: sizes.$input-height;

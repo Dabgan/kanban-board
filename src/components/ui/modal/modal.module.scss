@@ -4,7 +4,8 @@
 
 .overlay {
     @include mixins.flex(row, center, center);
-    background-color: rgba(0, 0, 0, 0.5);
+
+    background-color: rgb(0 0 0 / 50%);
     height: 100vh;
     left: 0;
     position: fixed;

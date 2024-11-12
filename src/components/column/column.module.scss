@@ -7,29 +7,30 @@
 .column {
     background-color: colors.$color-surface-dark;
     border-radius: sizes.$radius-md;
-    @include mixins.flex(column, flex-start, stretch);
     flex-shrink: 0;
     height: fit-content;
     min-height: sizes.$card-min-height;
     min-width: sizes.$column-width;
     padding: 0 sizes.$spacing-md sizes.$spacing-md;
     width: sizes.$column-width;
+    @include mixins.flex(column, flex-start, stretch);
 }
 
 .title-bar {
     @include mixins.flex(row, space-between, center);
+
     gap: 0;
     margin: sizes.$spacing-md 0;
     width: 100%;
 
     [data-type='title'] {
+        border-radius: sizes.$radius-sm;
         font-size: component-sizes.$title-font-size;
         font-weight: component-sizes.$title-font-weight;
+        height: sizes.$input-height;
+        max-width: calc(100% - #{sizes.$delete-icon-size});
         padding: sizes.$spacing-sm;
         @include mixins.interactive-border(component-sizes.$border-width);
-        border-radius: sizes.$radius-sm;
-        max-width: calc(100% - #{sizes.$delete-icon-size});
-        height: sizes.$input-height;
         @include mixins.flex(row, flex-start, center);
 
         h2 {
@@ -44,6 +45,7 @@
 
 .content {
     @include mixins.flex(column, flex-start, stretch);
+
     flex-grow: 1;
     margin-bottom: sizes.$spacing-md;
     min-height: sizes.$spacing-unit;

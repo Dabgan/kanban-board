@@ -5,6 +5,7 @@
 
 .container {
     @include mixins.flex(column, center, center, sizes.$spacing-lg);
+
     height: 100vh;
     padding: sizes.$spacing-lg;
     width: 100%;
@@ -18,6 +19,7 @@
 
 .button {
     @include mixins.button-base;
+
     font-size: component-sizes.$title-font-size;
     padding: sizes.$spacing-sm sizes.$spacing-md;
 }

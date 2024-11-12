@@ -7,6 +7,7 @@
 .button {
     @include mixins.button-base;
     @extend %focus-outline;
+
     font-size: component-sizes.$title-font-size;
     padding: sizes.$spacing-sm sizes.$spacing-md;
 }

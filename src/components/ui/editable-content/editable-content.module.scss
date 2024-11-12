@@ -6,13 +6,20 @@
 
 .edit-container {
     @include mixins.flex(column, flex-start, stretch, sizes.$spacing-sm);
+
     width: 100%;
 }
 
 .content {
     @extend %focus-outline;
-    @include mixins.surface-element;
+
+    // @include mixins.surface-element;
     @include mixins.flex;
+
+    background: colors.$color-surface-dark;
+    color: colors.$color-text;
+
+    // border: 2px solid red !important;
     cursor: pointer;
     margin: 0;
     padding: sizes.$spacing-sm;
@@ -34,13 +41,13 @@
 }
 
 button.content.description {
+    align-items: flex-start;
     background-color: colors.$color-surface;
     border: component-sizes.$border-width solid colors.$color-accent;
     font-size: component-sizes.$description-font-size;
+    justify-content: flex-start;
     min-height: component-sizes.$description-min-height;
     padding: sizes.$spacing-md;
-    align-items: flex-start;
-    justify-content: flex-start;
     @include mixins.transition;
 
     &:hover {
@@ -50,10 +57,10 @@ button.content.description {
 }
 
 .description-content {
+    font-size: component-sizes.$description-font-size;
     text-align: left;
     white-space: pre-wrap;
     word-break: break-word;
-    font-size: component-sizes.$description-font-size;
 }
 
 .input {
@@ -62,12 +69,13 @@ button.content.description {
 
 .textarea {
     @include mixins.input-base;
+
     background-color: colors.$color-surface;
     border: component-sizes.$border-width solid colors.$color-accent;
+    font-family: inherit;
     min-height: component-sizes.$description-min-height;
     padding: sizes.$spacing-md;
     resize: vertical;
-    font-family: inherit;
     @include mixins.transition;
 
     &:hover {

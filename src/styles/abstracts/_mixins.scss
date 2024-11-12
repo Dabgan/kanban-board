@@ -3,10 +3,10 @@
 @use 'colors';
 
 @mixin flex($direction: row, $justify: flex-start, $align: stretch, $gap: 0) {
+    align-items: $align;
     display: flex;
     flex-direction: $direction;
     justify-content: $justify;
-    align-items: $align;
     @if $gap != 0 {
         gap: $gap;
     }
@@ -39,6 +39,7 @@
 
 @mixin input-base {
     @include surface-element;
+
     border: none;
     font-family: inherit;
     font-size: 1rem;
@@ -53,6 +54,7 @@
 
 @mixin button-base {
     @include surface-element;
+
     border: component-sizes.$border-width solid colors.$color-accent;
     cursor: pointer;
     font-family: inherit;

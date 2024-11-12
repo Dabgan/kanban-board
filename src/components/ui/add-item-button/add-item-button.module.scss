@@ -6,17 +6,24 @@
 
 .container {
     @include mixins.flex(column, flex-start, stretch, sizes.$spacing-sm);
+
     width: 100%;
 }
 
-.button {
+.add-button {
     @include mixins.button-base;
     @extend %focus-outline;
-    font-size: component-sizes.$title-font-size;
-    padding: sizes.$spacing-sm sizes.$spacing-md;
-    width: 100%;
+
+    align-items: center;
     background-color: colors.$color-surface;
     border-color: colors.$color-accent;
+    display: flex;
+    font-size: component-sizes.$title-font-size;
+    height: sizes.$input-height;
+    justify-content: center;
+    padding: sizes.$spacing-xs sizes.$spacing-md;
+    text-align: center;
+    width: 100%;
 
     &:hover {
         background-color: colors.$color-surface-hover;
@@ -24,18 +31,13 @@
     }
 }
 
-.input {
-    @include mixins.input-base;
-    background-color: colors.$color-surface;
-    border-color: colors.$color-accent;
+.new-item {
+    width: 100%;
 
-    &:hover {
-        background-color: colors.$color-surface-hover;
-        border-color: colors.$color-accent-hover;
-    }
-
-    &:focus {
-        background-color: colors.$color-surface;
-        border-color: colors.$color-accent-hover;
+    input {
+        font-size: component-sizes.$title-font-size;
+        height: sizes.$input-height;
+        padding: sizes.$spacing-xs sizes.$spacing-md;
+        width: 100%;
     }
 }

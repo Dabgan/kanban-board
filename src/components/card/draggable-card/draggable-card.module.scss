@@ -5,6 +5,7 @@
 .card {
     @include mixins.surface-element;
     @include mixins.interactive-border;
+
     cursor: grab;
     min-height: sizes.$card-min-height;
     padding: sizes.$spacing-sm;
@@ -13,7 +14,7 @@
     &[data-is-dragging='true'] {
         background-color: colors.$color-surface;
         border-color: colors.$color-accent;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
         opacity: 0.7;
         transform: scale(1.02);
     }

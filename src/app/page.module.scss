@@ -4,6 +4,7 @@
 
 .board {
     @include mixins.flex(row, flex-start, flex-start, sizes.$spacing-lg);
+
     min-height: 100vh;
     overflow-x: auto;
     padding: sizes.$spacing-lg;
@@ -12,6 +13,7 @@
 
 .add-column {
     @include mixins.flex(column, flex-start, stretch);
+
     flex-shrink: 0;
     height: fit-content;
     min-width: sizes.$column-width;
