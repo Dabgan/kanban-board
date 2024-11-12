@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
 import { useAddItem } from '@/hooks/use-add-item';
@@ -23,7 +21,6 @@ export const AddItemButton = ({
 }: AddItemButtonProps) => {
     const { isAdding, newTitle, inputRef, handleAdd, handleKeyDown, handleStartAdding, setNewTitle } =
         useAddItem(onAdd);
-
     return isAdding ? (
         <div className={styles['new-item']}>
             <Input
@@ -39,9 +36,9 @@ export const AddItemButton = ({
     ) : (
         <Button
             aria-label={buttonAriaLabel}
-            onClick={handleStartAdding}
-            variant="primary"
             className={styles['add-button']}
+            variant="primary"
+            onClick={handleStartAdding}
         >
             {buttonText}
         </Button>
