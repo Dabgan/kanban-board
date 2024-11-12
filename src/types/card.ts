@@ -6,6 +6,8 @@ export type Card = {
     order: number;
 };
 
+export type CardRequestWithoutOrder = Omit<Card, 'order'>;
+
 export type CardComponentProps = {
     card: Card;
     index: number;

@@ -7,6 +7,7 @@ import { validateCard } from '@/lib/validation';
 import type { ApiResponse } from '@/types/api';
 import type { BoardData } from '@/types/board';
 import type { Card } from '@/types/card';
+import { sanitizeRequestData } from '@/utils/sanitization';
 
 export const GET = async (_request: Request, { params }: { params: { id: string } }) => {
     try {
@@ -40,8 +41,10 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
             });
         }
 
+        const sanitizedData = sanitizeRequestData<Card>(requestData);
+
         const boardData = await readBoardData();
-        const validationResult = validateCard(requestData);
+        const validationResult = validateCard(sanitizedData);
         if (!validationResult.isValid) {
             return handleRouteError<Card>(new Error(validationResult.errors[0]?.message ?? 'Validation failed'), {
                 defaultMessage: 'Validation failed',
@@ -57,20 +60,19 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
             });
         }
 
-        // If moving to a different column, append to the end
-        if (existingCard.columnId !== requestData.columnId) {
-            const columnCards = boardData.cards.filter((card) => card.columnId === requestData.columnId);
+        if (existingCard.columnId !== sanitizedData.columnId) {
+            const columnCards = boardData.cards.filter((card) => card.columnId === sanitizedData.columnId);
             const highestOrder = Math.max(...columnCards.map((card) => card.order), 0);
-            requestData.order = highestOrder + 1;
+            sanitizedData.order = highestOrder + 1;
         }
 
         const updatedBoardData: BoardData = {
             ...boardData,
-            cards: boardData.cards.map((card) => (card.id === params.id ? requestData : card)),
+            cards: boardData.cards.map((card) => (card.id === params.id ? sanitizedData : card)),
         };
 
         await writeBoardData(updatedBoardData);
-        const response: ApiResponse<Card> = { data: requestData };
+        const response: ApiResponse<Card> = { data: sanitizedData };
         return NextResponse.json(response);
     } catch (error) {
         return handleRouteError<Card>(error, {

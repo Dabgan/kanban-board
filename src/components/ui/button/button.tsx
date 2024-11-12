@@ -1,21 +1,20 @@
-import type { ButtonProps } from '@/types/common-components';
+import type { ButtonHTMLAttributes } from 'react';
+import { combineClassNames } from '@/utils/style-utils';
 
 import styles from './button.module.scss';
 
-export const Button = ({
-    'aria-label': ariaLabel,
-    children,
-    className = '',
-    onClick,
-    size = 'medium',
-    variant = 'secondary',
-    ...props
-}: ButtonProps) => {
-    const buttonClassName = [styles.button, styles[variant], styles[size], className].filter(Boolean).join(' ');
+type ButtonVariant = 'primary' | 'secondary';
+type ButtonSize = 'small' | 'medium' | 'large';
 
-    return (
-        <button aria-label={ariaLabel} className={buttonClassName} onClick={onClick} type="button" {...props}>
-            {children}
-        </button>
-    );
-};
+type ButtonProps = {
+    variant?: ButtonVariant;
+    size?: ButtonSize;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const Button = ({ variant = 'primary', size = 'medium', className = '', ...props }: ButtonProps) => (
+    <button
+        className={combineClassNames(styles.button, styles[variant], styles[size], className)}
+        type="button"
+        {...props}
+    />
+);

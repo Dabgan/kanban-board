@@ -6,7 +6,8 @@ import { isColumnRequestWithoutOrder } from '@/lib/type-guards';
 import { validateColumn } from '@/lib/validation';
 import type { ApiResponse } from '@/types/api';
 import type { BoardData } from '@/types/board';
-import type { Column } from '@/types/column';
+import type { Column, ColumnRequest } from '@/types/column';
+import { sanitizeRequestData } from '@/utils/sanitization';
 
 export const GET = async (_request: Request) => {
     try {
@@ -22,7 +23,7 @@ export const GET = async (_request: Request) => {
 
 export const POST = async (request: Request) => {
     try {
-        const requestData = await request.json();
+        const requestData = (await request.json()) as unknown;
 
         if (!isColumnRequestWithoutOrder(requestData)) {
             return handleRouteError<Column>(new Error('Invalid column data'), {
@@ -32,20 +33,21 @@ export const POST = async (request: Request) => {
         }
 
         const boardData = await readBoardData();
-        const validationResult = validateColumn({ ...requestData, order: 0 }, boardData.columns);
+        const sanitizedData = sanitizeRequestData<ColumnRequest>(requestData);
+        const highestOrder = Math.max(...boardData.columns.map((column) => column.order), 0);
+
+        const columnWithOrder: Column = {
+            ...sanitizedData,
+            order: highestOrder + 1,
+        };
+
+        const validationResult = validateColumn(columnWithOrder, boardData.columns);
         if (!validationResult.isValid) {
             return handleRouteError<Column>(new Error(validationResult.errors[0]?.message ?? 'Validation failed'), {
                 defaultMessage: 'Validation failed',
                 status: 400,
             });
         }
-
-        const highestOrder = Math.max(...boardData.columns.map((column) => column.order), 0);
-
-        const columnWithOrder: Column = {
-            ...requestData,
-            order: highestOrder + 1,
-        };
 
         const updatedBoardData: BoardData = {
             ...boardData,

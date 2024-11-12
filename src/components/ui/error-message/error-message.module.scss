@@ -1,0 +1,10 @@
+@use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/colors';
+@use '@/styles/abstracts/component-sizes';
+
+.message {
+    color: colors.$color-error;
+    display: block;
+    font-size: component-sizes.$error-font-size;
+    margin-top: sizes.$spacing-xs;
+}

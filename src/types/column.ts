@@ -5,6 +5,8 @@ export type Column = {
     cardIds: string[];
 };
 
+export type ColumnRequest = Omit<Column, 'order'>;
+
 export type ColumnsState = {
     columns: Column[];
     error: string | null;
@@ -12,7 +14,7 @@ export type ColumnsState = {
 
 export type ColumnsContextType = {
     state: ColumnsState;
-    addColumn: (column: Omit<Column, 'order'>) => Promise<void>;
+    addColumn: (column: ColumnRequest) => Promise<void>;
     updateColumn: (id: string, column: Column) => Promise<void>;
     deleteColumn: (id: string) => Promise<void>;
 };

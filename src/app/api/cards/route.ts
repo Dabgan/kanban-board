@@ -6,7 +6,8 @@ import { isCardRequestWithoutOrder } from '@/lib/type-guards';
 import { validateCard } from '@/lib/validation';
 import type { ApiResponse } from '@/types/api';
 import type { BoardData } from '@/types/board';
-import type { Card } from '@/types/card';
+import type { Card, CardRequestWithoutOrder } from '@/types/card';
+import { sanitizeRequestData } from '@/utils/sanitization';
 
 export const GET = async (_request: Request) => {
     try {
@@ -22,7 +23,7 @@ export const GET = async (_request: Request) => {
 
 export const POST = async (request: Request) => {
     try {
-        const requestData = await request.json();
+        const requestData = (await request.json()) as unknown;
 
         if (!isCardRequestWithoutOrder(requestData)) {
             return handleRouteError<Card>(new Error('Invalid card data'), {
@@ -31,22 +32,25 @@ export const POST = async (request: Request) => {
             });
         }
 
-        const validationResult = validateCard({ ...requestData, order: 0 });
+        const sanitizedData = sanitizeRequestData<CardRequestWithoutOrder>(requestData);
+
+        const boardData = await readBoardData();
+        const columnCards = boardData.cards.filter((card) => card.columnId === sanitizedData.columnId);
+        const highestOrder = Math.max(...columnCards.map((card) => card.order), 0);
+
+        const cardWithOrder: Card = {
+            ...sanitizedData,
+            order: highestOrder + 1,
+        };
+
+        // Validate complete card data after adding order
+        const validationResult = validateCard(cardWithOrder);
         if (!validationResult.isValid) {
             return handleRouteError<Card>(new Error(validationResult.errors[0]?.message ?? 'Validation failed'), {
                 defaultMessage: 'Validation failed',
                 status: 400,
             });
         }
-
-        const boardData = await readBoardData();
-        const columnCards = boardData.cards.filter((card) => card.columnId === requestData.columnId);
-        const highestOrder = Math.max(...columnCards.map((card) => card.order), 0);
-
-        const cardWithOrder: Card = {
-            ...requestData,
-            order: highestOrder + 1,
-        };
 
         const updatedBoardData: BoardData = {
             ...boardData,

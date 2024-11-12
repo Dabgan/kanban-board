@@ -7,6 +7,7 @@ import { validateColumn } from '@/lib/validation';
 import type { ApiResponse } from '@/types/api';
 import type { BoardData } from '@/types/board';
 import type { Column } from '@/types/column';
+import { sanitizeRequestData } from '@/utils/sanitization';
 
 export const PUT = async (request: Request, { params }: { params: { id: string } }) => {
     try {
@@ -20,7 +21,10 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
         }
 
         const boardData = await readBoardData();
-        const validationResult = validateColumn(requestData, boardData.columns);
+        const sanitizedData = sanitizeRequestData<Column>(requestData);
+
+        const otherColumns = boardData.columns.filter((column) => column.id !== params.id);
+        const validationResult = validateColumn(sanitizedData, otherColumns);
         if (!validationResult.isValid) {
             return handleRouteError<Column>(new Error(validationResult.errors[0]?.message ?? 'Validation failed'), {
                 defaultMessage: 'Validation failed',
@@ -28,15 +32,21 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
             });
         }
 
+        const existingColumn = boardData.columns.find((column) => column.id === params.id);
+        if (!existingColumn) {
+            return handleRouteError<Column>(new Error('Column not found'), {
+                defaultMessage: 'Column not found',
+                status: 404,
+            });
+        }
+
         const updatedBoardData: BoardData = {
             ...boardData,
-            columns: boardData.columns.map((existingColumn) =>
-                existingColumn.id === params.id ? requestData : existingColumn,
-            ),
+            columns: boardData.columns.map((column) => (column.id === params.id ? sanitizedData : column)),
         };
 
         await writeBoardData(updatedBoardData);
-        const response: ApiResponse<Column> = { data: requestData };
+        const response: ApiResponse<Column> = { data: sanitizedData };
         return NextResponse.json(response);
     } catch (error) {
         return handleRouteError<Column>(error, {
