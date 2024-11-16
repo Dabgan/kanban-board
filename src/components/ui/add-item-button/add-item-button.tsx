@@ -37,7 +37,7 @@ export const AddItemButton = ({
         <Button
             aria-label={buttonAriaLabel}
             className={styles['add-button']}
-            variant="primary"
+            variant="secondary"
             onClick={handleStartAdding}
         >
             {buttonText}

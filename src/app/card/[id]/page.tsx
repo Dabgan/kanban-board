@@ -49,7 +49,6 @@ const CardDetailPage = ({ params }: CardDetailPageProps) => {
                         ariaLabel="Edit card title"
                         content={card.title}
                         placeholder="Add title..."
-                        tag="h1"
                         type="title"
                         onUpdate={updateTitle}
                     />

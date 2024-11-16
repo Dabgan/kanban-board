@@ -13,11 +13,13 @@
 }
 
 .card-container {
+    box-sizing: content-box;
     background-color: colors.$color-surface-dark;
     border-radius: sizes.$radius-md;
     max-width: sizes.$card-detail-width;
     padding: sizes.$spacing-lg;
     width: 100%;
+    min-height: sizes.$card-detail-min-height;
 }
 
 .header {

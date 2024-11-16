@@ -27,7 +27,7 @@ export const EditableField = (props: EditableFieldProps): ReactElement => {
 
     return (
         <>
-            <textarea {...commonProps} ref={fieldRef} rows={EDITABLE_CONTENT_CONSTANTS.ROWS} />
+            <textarea {...commonProps} ref={fieldRef} />
             <p className={styles.hint}>{EDITABLE_CONTENT_CONSTANTS.TEXTAREA_HINT}</p>
         </>
     );
