@@ -1,68 +1,81 @@
 'use client';
 
+import { type ReactElement } from 'react';
+
+import { Button } from '@/components/ui/button/button';
 import { ErrorMessage } from '@/components/ui/error-message/error-message';
+import { EDITABLE_CONTENT_CONSTANTS } from '@/constants/editable-content';
 import { useEditableContent } from '@/hooks/use-editable-content';
-import type { EditableContentProps } from '@/types/editable-content';
+import type { ContentType, EditableContentProps, EditableFieldProps, FieldType } from '@/types/editable-content';
 import { combineClassNames } from '@/utils/style-utils';
 
 import styles from './editable-content.module.scss';
+import { EditableField } from './editable-field';
+
+type FieldConfig = {
+    fieldType: FieldType;
+    Component: keyof JSX.IntrinsicElements;
+    className?: string;
+};
+
+const getFieldConfig = (type: ContentType): FieldConfig => ({
+    fieldType: type === 'title' ? 'input' : 'textarea',
+    Component: type === 'title' ? 'h2' : 'div',
+    className: type === 'title' ? undefined : styles['description-content'],
+});
 
 export const EditableContent = ({
     content,
     onUpdate,
     ariaLabel,
     type,
-    tag: Tag = 'h2',
-    placeholder = 'Add content...',
-}: EditableContentProps) => {
+    placeholder = EDITABLE_CONTENT_CONSTANTS.PLACEHOLDER,
+}: EditableContentProps): ReactElement => {
     const { state, handlers, refs } = useEditableContent(content, onUpdate, type);
+    const { fieldType, Component, className } = getFieldConfig(type);
 
     if (state.isEditing) {
+        const commonFieldProps = {
+            ariaLabel,
+            value: state.currentContent,
+            hasError: Boolean(state.validationError),
+            onBlur: handlers.handleBlur,
+            onChange: handlers.handleChange,
+            onKeyDown: handlers.handleKeyDown,
+        };
+
+        const fieldProps =
+            fieldType === 'input'
+                ? ({
+                      ...commonFieldProps,
+                      fieldType: 'input' as const,
+                      fieldRef: refs.inputRef,
+                  } as const)
+                : ({
+                      ...commonFieldProps,
+                      fieldType: 'textarea' as const,
+                      fieldRef: refs.textareaRef,
+                  } as const);
+
         return (
             <div className={styles['edit-container']}>
-                {type === 'title' ? (
-                    <input
-                        ref={refs.inputRef}
-                        aria-label={ariaLabel}
-                        className={combineClassNames(styles.input, state.validationError && styles.error)}
-                        value={state.currentContent}
-                        onBlur={handlers.handleBlur}
-                        onChange={handlers.handleChange}
-                        onKeyDown={handlers.handleKeyDown}
-                    />
-                ) : (
-                    <>
-                        <textarea
-                            ref={refs.textareaRef}
-                            aria-label={ariaLabel}
-                            className={combineClassNames(styles.textarea, state.validationError && styles.error)}
-                            rows={4}
-                            value={state.currentContent}
-                            onBlur={handlers.handleBlur}
-                            onChange={handlers.handleChange}
-                            onKeyDown={handlers.handleKeyDown}
-                        />
-                        <p className={styles.hint}>Press Ctrl+Enter to save, Esc to cancel</p>
-                    </>
-                )}
+                <EditableField {...(fieldProps as EditableFieldProps)} />
                 {state.validationError ? <ErrorMessage message={state.validationError} /> : null}
             </div>
         );
     }
 
+    const contentElement = <Component className={className}>{content || placeholder}</Component>;
+
     return (
-        <button
+        <Button
             aria-label={ariaLabel}
             className={combineClassNames(styles.content, styles[type])}
             data-type={type}
-            type="button"
+            variant="secondary"
             onClick={handlers.handleContentClick}
         >
-            {type === 'title' ? (
-                <Tag>{content || placeholder}</Tag>
-            ) : (
-                <div className={styles['description-content']}>{content || placeholder}</div>
-            )}
-        </button>
+            {contentElement}
+        </Button>
     );
 };

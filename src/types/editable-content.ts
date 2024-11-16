@@ -7,7 +7,6 @@ export type EditableContentProps = {
     onUpdate: (newContent: string) => Promise<void>;
     ariaLabel: string;
     type: ContentType;
-    tag?: 'h1' | 'h2';
     placeholder?: string;
 };
 
@@ -35,3 +34,26 @@ export type UseEditableContentReturn = {
     handlers: EditableContentHandlers;
     refs: EditableContentRefs;
 };
+
+export type FieldType = 'input' | 'textarea';
+
+type CommonFieldProps = {
+    ariaLabel: string;
+    value: string;
+    hasError: boolean;
+    onBlur: () => void;
+    onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    onKeyDown: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+};
+
+export type InputFieldProps = CommonFieldProps & {
+    fieldType: 'input';
+    fieldRef: RefObject<HTMLInputElement>;
+};
+
+export type TextareaFieldProps = CommonFieldProps & {
+    fieldType: 'textarea';
+    fieldRef: RefObject<HTMLTextAreaElement>;
+};
+
+export type EditableFieldProps = InputFieldProps | TextareaFieldProps;

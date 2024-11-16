@@ -1,37 +1,45 @@
 import { useCallback, useRef, useState } from 'react';
 
+import { KEYBOARD_KEYS } from '@/constants/editable-content';
 import type { EditableContentProps, UseEditableContentReturn } from '@/types/editable-content';
-import { hasSpecialCharacters } from '@/utils/sanitization';
+
+import { useContentValidation } from './use-content-validation';
+
+const createInitialState = (content: string) => ({
+    isEditing: false,
+    currentContent: content,
+});
 
 export const useEditableContent = (
     content: string,
     onUpdate: EditableContentProps['onUpdate'],
     type: EditableContentProps['type'],
 ): UseEditableContentReturn => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [currentContent, setCurrentContent] = useState(content);
-    const [validationError, setValidationError] = useState<string | null>(null);
+    const [state, setState] = useState(() => createInitialState(content));
+    const { validationError, validateContent } = useContentValidation();
 
     const inputRef = useRef<HTMLInputElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleEdit = useCallback(async () => {
-        if (validationError) {
+        if (validationError ?? state.currentContent === content) {
             return;
         }
 
-        if (currentContent !== content) {
-            await onUpdate(currentContent);
-        }
-        setIsEditing(false);
-    }, [currentContent, onUpdate, content, validationError]);
+        await onUpdate(state.currentContent);
+        setState((prevState) => ({ ...prevState, isEditing: false }));
+    }, [state.currentContent, onUpdate, content, validationError]);
 
     const handleKeyDown = useCallback(
         async (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            if (event.key === 'Escape') {
-                setIsEditing(false);
-                setCurrentContent(content);
-                setValidationError(null);
+            const { key, metaKey, ctrlKey } = event;
+
+            if (key === KEYBOARD_KEYS.ESCAPE) {
+                setState((prevState) => ({
+                    ...prevState,
+                    isEditing: false,
+                    currentContent: content,
+                }));
                 return;
             }
 
@@ -39,10 +47,10 @@ export const useEditableContent = (
                 return;
             }
 
-            const isEnterPressed = event.key === 'Enter';
-            const isDescriptionWithModifier = type === 'description' && (event.metaKey || event.ctrlKey);
+            const shouldSave =
+                type === 'title' ? key === KEYBOARD_KEYS.ENTER : key === KEYBOARD_KEYS.ENTER && (metaKey || ctrlKey);
 
-            if ((type === 'title' && isEnterPressed) || (isDescriptionWithModifier && isEnterPressed)) {
+            if (shouldSave) {
                 event.preventDefault();
                 await handleEdit();
             }
@@ -51,27 +59,22 @@ export const useEditableContent = (
     );
 
     const handleContentClick = useCallback(() => {
-        setIsEditing(true);
+        setState((prevState) => ({ ...prevState, isEditing: true }));
+
         setTimeout(() => {
-            if (type === 'title') {
-                inputRef.current?.focus();
-            } else {
-                textareaRef.current?.focus();
-            }
+            const elementToFocus = type === 'title' ? inputRef.current : textareaRef.current;
+            elementToFocus?.focus();
         }, 0);
     }, [type]);
 
-    const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const newValue = event.target.value;
-
-        if (hasSpecialCharacters(newValue)) {
-            setValidationError('Special characters are not allowed');
-        } else {
-            setValidationError(null);
-        }
-
-        setCurrentContent(newValue);
-    }, []);
+    const handleChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            const newValue = event.target.value;
+            validateContent(newValue);
+            setState((prevState) => ({ ...prevState, currentContent: newValue }));
+        },
+        [validateContent],
+    );
 
     const handleBlur = useCallback(() => {
         if (!validationError) {
@@ -81,8 +84,7 @@ export const useEditableContent = (
 
     return {
         state: {
-            isEditing,
-            currentContent,
+            ...state,
             validationError,
         },
         handlers: {
