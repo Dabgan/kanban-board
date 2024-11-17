@@ -6,6 +6,10 @@ import { hasSpecialCharacters } from '@/utils/sanitization';
 export const useContentValidation = () => {
     const [validationError, setValidationError] = useState<string | null>(null);
 
+    const clearError = useCallback(() => {
+        setValidationError(null);
+    }, []);
+
     const validateContent = useCallback((content: string) => {
         if (hasSpecialCharacters(content)) {
             setValidationError(EDITABLE_CONTENT_CONSTANTS.VALIDATION_ERROR);
@@ -19,5 +23,6 @@ export const useContentValidation = () => {
     return {
         validationError,
         validateContent,
+        clearError,
     };
 };

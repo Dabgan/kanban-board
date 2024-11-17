@@ -65,7 +65,9 @@ export const EditableContent = ({
         );
     }
 
-    const contentElement = <Component className={className}>{content || placeholder}</Component>;
+    const contentElement = (
+        <Component className={combineClassNames(className, styles.type)}>{content || placeholder}</Component>
+    );
 
     return (
         <Button
@@ -74,6 +76,7 @@ export const EditableContent = ({
             data-type={type}
             variant="secondary"
             onClick={handlers.handleContentClick}
+            size="small"
         >
             {contentElement}
         </Button>

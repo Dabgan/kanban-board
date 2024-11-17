@@ -4,90 +4,97 @@
 @use '@/styles/abstracts/colors';
 @use '@/styles/utilities/accessibility';
 
-.edit-container {
-    @include mixins.flex(column, flex-start, stretch, sizes.$spacing-sm);
+// .edit-container {
+//     @include mixins.flex(column, flex-start, stretch, sizes.$spacing-sm);
 
-    width: 100%;
-}
+//     width: 100%;
+// }
 
-.content {
-    @extend %focus-outline;
+// .content {
+//     @extend %focus-outline;
 
-    @include mixins.flex;
+//     @include mixins.flex;
 
-    background: colors.$color-surface-dark;
-    color: colors.$color-text;
+//     background: colors.$color-surface-dark;
+//     color: colors.$color-text;
+//     cursor: pointer;
+//     margin: 0;
+//     padding: sizes.$spacing-sm;
+//     text-align: left;
+//     width: 100%;
 
-    cursor: pointer;
-    margin: 0;
-    padding: sizes.$spacing-sm;
-    text-align: left;
-    width: 100%;
+//     &.title {
+//         h1,
+//         h2 {
+//             font-size: inherit;
+//             font-weight: inherit;
+//             margin: 0;
+//         }
+//     }
+// }
 
-    &.title {
-        h1,
-        h2 {
-            font-size: inherit;
-            font-weight: inherit;
-            margin: 0;
-        }
-    }
-}
+// button.content.description {
+//     align-items: flex-start;
+//     background-color: colors.$color-surface;
+//     border: component-sizes.$border-width solid colors.$color-accent;
+//     border-radius: sizes.$radius-sm;
+//     font-size: component-sizes.$description-font-size;
+//     justify-content: flex-start;
+//     min-height: component-sizes.$description-min-height;
+//     padding: sizes.$spacing-md;
+//     @include mixins.transition;
 
-button.content.description {
-    align-items: flex-start;
-    background-color: colors.$color-surface;
-    border: component-sizes.$border-width solid colors.$color-accent;
-    border-radius: sizes.$radius-sm;
-    font-size: component-sizes.$description-font-size;
-    justify-content: flex-start;
-    min-height: component-sizes.$description-min-height;
-    padding: sizes.$spacing-md;
-    @include mixins.transition;
+//     &:hover {
+//         background-color: colors.$color-surface-hover;
+//         border-color: colors.$color-accent-hover;
+//     }
+// }
 
-    &:hover {
-        background-color: colors.$color-surface-hover;
-        border-color: colors.$color-accent-hover;
-    }
-}
-
-.description-content {
-    font-size: component-sizes.$description-font-size;
-    text-align: left;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
+// .description-content {
+//     font-size: component-sizes.$description-font-size;
+//     text-align: left;
+//     white-space: pre-wrap;
+//     word-break: break-word;
+// }
 
 .input {
     @include mixins.input-base;
-    font-size: component-sizes.$heading-font-size;
+    font-size: component-sizes.$description-font-size;
 }
 
-.textarea {
-    @include mixins.input-base;
+// .card-detail-input {
+//     font-size: component-sizes.$heading-font-size;
+// }
 
-    background-color: colors.$color-surface;
-    border: component-sizes.$border-width solid colors.$color-accent;
-    font-family: inherit;
-    min-height: component-sizes.$description-min-height;
-    padding: sizes.$spacing-md;
-    resize: vertical;
-    @include mixins.transition;
+// .textarea {
+//     @include mixins.input-base;
 
-    &:hover {
-        background-color: colors.$color-surface-hover;
-        border-color: colors.$color-accent-hover;
-    }
+//     background-color: colors.$color-surface;
+//     border: component-sizes.$border-width solid colors.$color-accent;
+//     font-family: inherit;
+//     min-height: component-sizes.$description-min-height;
+//     padding: sizes.$spacing-md;
+//     resize: vertical;
+//     @include mixins.transition;
 
-    &:focus {
-        background-color: colors.$color-surface;
-        border-color: colors.$color-accent-hover;
-        outline: none;
-    }
-}
+//     &:hover {
+//         background-color: colors.$color-surface-hover;
+//         border-color: colors.$color-accent-hover;
+//     }
+
+//     &:focus {
+//         background-color: colors.$color-surface;
+//         border-color: colors.$color-accent-hover;
+//         outline: none;
+//     }
+// }
 
 .hint {
     color: colors.$color-text-secondary;
     font-size: component-sizes.$error-font-size;
     margin: 0;
 }
+
+// .title {
+//     border: 2px solid #f11b1b !important;
+// }

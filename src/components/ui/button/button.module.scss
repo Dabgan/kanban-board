@@ -10,6 +10,8 @@
 
     @extend %interactive-element;
     @extend %focus-outline;
+    border-radius: sizes.$radius-sm;
+    width: 100%;
 }
 
 .primary {
@@ -24,6 +26,7 @@
 .secondary {
     background-color: colors.$color-surface;
     color: colors.$color-text;
+    border: 2px solid colors.$color-accent;
 
     &:hover:not(:disabled) {
         background-color: colors.$color-surface-hover;
@@ -31,16 +34,16 @@
 }
 
 .small {
-    font-size: component-sizes.$error-font-size;
-    padding: sizes.$spacing-xs sizes.$spacing-sm;
+    font-size: sizes.$button-font-size;
+    padding: sizes.$spacing-xs sizes.$spacing-xs;
 }
 
 .medium {
     font-size: component-sizes.$title-font-size;
-    padding: sizes.$spacing-sm sizes.$spacing-md;
+    padding: sizes.$spacing-sm sizes.$spacing-sm;
 }
 
 .large {
     font-size: component-sizes.$heading-font-size;
-    padding: sizes.$spacing-md sizes.$spacing-lg;
+    padding: sizes.$spacing-md sizes.$spacing-md;
 }

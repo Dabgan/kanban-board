@@ -5,21 +5,28 @@ import type { EditableContentProps, UseEditableContentReturn } from '@/types/edi
 
 import { useContentValidation } from './use-content-validation';
 
-const createInitialState = (content: string) => ({
-    isEditing: false,
-    currentContent: content,
-});
-
 export const useEditableContent = (
     content: string,
     onUpdate: EditableContentProps['onUpdate'],
     type: EditableContentProps['type'],
 ): UseEditableContentReturn => {
-    const [state, setState] = useState(() => createInitialState(content));
-    const { validationError, validateContent } = useContentValidation();
+    const [state, setState] = useState({
+        isEditing: false,
+        currentContent: content,
+    });
+    const { validationError, validateContent, clearError } = useContentValidation();
 
     const inputRef = useRef<HTMLInputElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const clearState = useCallback(() => {
+        clearError();
+        setState((prevState) => ({
+            ...prevState,
+            isEditing: false,
+            currentContent: content,
+        }));
+    }, [clearError, content]);
 
     const handleEdit = useCallback(async () => {
         if (validationError ?? state.currentContent === content) {
@@ -27,19 +34,15 @@ export const useEditableContent = (
         }
 
         await onUpdate(state.currentContent);
-        setState((prevState) => ({ ...prevState, isEditing: false }));
-    }, [state.currentContent, onUpdate, content, validationError]);
+        clearState();
+    }, [state.currentContent, onUpdate, content, validationError, clearState]);
 
     const handleKeyDown = useCallback(
         async (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             const { key, metaKey, ctrlKey } = event;
 
             if (key === KEYBOARD_KEYS.ESCAPE) {
-                setState((prevState) => ({
-                    ...prevState,
-                    isEditing: false,
-                    currentContent: content,
-                }));
+                clearState();
                 return;
             }
 
@@ -55,7 +58,7 @@ export const useEditableContent = (
                 await handleEdit();
             }
         },
-        [handleEdit, content, type, validationError],
+        [handleEdit, type, validationError, clearState],
     );
 
     const handleContentClick = useCallback(() => {
@@ -77,10 +80,8 @@ export const useEditableContent = (
     );
 
     const handleBlur = useCallback(() => {
-        if (!validationError) {
-            void handleEdit();
-        }
-    }, [handleEdit, validationError]);
+        clearState();
+    }, [clearState]);
 
     return {
         state: {

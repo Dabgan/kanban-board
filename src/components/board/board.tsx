@@ -3,12 +3,12 @@
 import { DragDropContext } from '@hello-pangea/dnd';
 
 import { Column } from '@/components/column/column';
-import { AddItemButton } from '@/components/ui/add-item-button/add-item-button';
 import { useBoardOperations } from '@/hooks/use-board-operations';
 import { useDragAndDrop } from '@/hooks/use-drag-and-drop';
 import { getSortedColumnCards } from '@/utils/sorting-utils';
 
 import styles from './board.module.scss';
+import { EditableContent } from '../ui/editable-content/editable-content';
 
 export const Board = () => {
     const { columns, handleAddColumn } = useBoardOperations();
@@ -22,12 +22,13 @@ export const Board = () => {
                     {columns.map((column) => (
                         <Column key={column.id} cards={getSortedColumnCards(cards, column.id)} column={column} />
                     ))}
-                    <AddItemButton
-                        buttonAriaLabel="Add new column to board"
-                        buttonText="Add Column"
-                        inputAriaLabel="New column title"
+
+                    <EditableContent
+                        ariaLabel="Add new column to board"
+                        content="Add Column"
                         placeholder="Enter column title..."
-                        onAdd={handleAddColumn}
+                        type="title"
+                        onUpdate={handleAddColumn}
                     />
                 </section>
             </main>

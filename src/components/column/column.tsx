@@ -1,7 +1,6 @@
-'use client';
+'use-client';
 
 import { DroppableColumn } from '@/components/column/droppable-column';
-import { AddItemButton } from '@/components/ui/add-item-button/add-item-button';
 import { DeleteButton } from '@/components/ui/delete-button/delete-button';
 import { EditableContent } from '@/components/ui/editable-content/editable-content';
 import { useColumnOperations } from '@/hooks/use-column-operations';
@@ -25,19 +24,17 @@ export const Column = ({ column, cards }: ColumnProps) => {
                 <EditableContent
                     ariaLabel={`Edit ${column.title} column title`}
                     content={column.title}
-                    tag="h2"
                     type="title"
                     onUpdate={handleUpdateTitle}
                 />
                 <DeleteButton label={`Delete ${column.title} column`} onClick={handleDelete} />
             </div>
             <DroppableColumn cards={cards} columnId={column.id} columnTitle={column.title} />
-            <AddItemButton
-                buttonAriaLabel={`Add new card to ${column.title} column`}
-                buttonText="Add Card"
-                inputAriaLabel={`New card title for ${column.title} column`}
-                placeholder="Enter card title..."
-                onAdd={handleAddCard}
+            <EditableContent
+                ariaLabel={`Add new card to ${column.title} column`}
+                content="Add Card"
+                type="title"
+                onUpdate={handleAddCard}
             />
         </article>
     );
