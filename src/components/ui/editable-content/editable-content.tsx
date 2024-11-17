@@ -4,7 +4,6 @@ import { type ReactElement } from 'react';
 
 import { Button } from '@/components/ui/button/button';
 import { ErrorMessage } from '@/components/ui/error-message/error-message';
-import { EDITABLE_CONTENT_CONSTANTS } from '@/constants/editable-content';
 import { useEditableContent } from '@/hooks/use-editable-content';
 import type { ContentType, EditableContentProps, EditableFieldProps, FieldType } from '@/types/editable-content';
 import { combineClassNames } from '@/utils/style-utils';
@@ -18,9 +17,20 @@ type FieldConfig = {
     className?: string;
 };
 
+const getComponent = (type: ContentType): keyof JSX.IntrinsicElements => {
+    switch (type) {
+        case 'title':
+            return 'h2';
+        case 'card-title':
+            return 'h1';
+        default:
+            return 'p';
+    }
+};
+
 const getFieldConfig = (type: ContentType): FieldConfig => ({
-    fieldType: type === 'title' ? 'input' : 'textarea',
-    Component: type === 'title' ? 'h2' : 'div',
+    fieldType: type.includes('title') ? 'input' : 'textarea',
+    Component: getComponent(type),
     className: type === 'title' ? undefined : styles['description-content'],
 });
 
@@ -30,7 +40,7 @@ export const EditableContent = ({
     ariaLabel,
     type,
     operation,
-    placeholder = EDITABLE_CONTENT_CONSTANTS.PLACEHOLDER,
+    placeholder,
 }: EditableContentProps): ReactElement => {
     const { state, handlers, refs } = useEditableContent(content, onUpdate, type, operation);
     const { fieldType, Component, className } = getFieldConfig(type);
@@ -74,7 +84,7 @@ export const EditableContent = ({
     return (
         <Button
             aria-label={ariaLabel}
-            className={combineClassNames(styles.content, styles[type])}
+            className={styles[type]}
             data-type={type}
             size="small"
             variant="secondary"

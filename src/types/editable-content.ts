@@ -1,6 +1,6 @@
 import type { ChangeEvent, KeyboardEvent, RefObject } from 'react';
 
-export type ContentType = 'title' | 'description';
+export type ContentType = 'title' | 'card-title' | 'description';
 
 export type EditableContentProps = {
     ariaLabel: string;

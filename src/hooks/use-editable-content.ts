@@ -35,8 +35,12 @@ export const useEditableContent = (
         }
 
         await onUpdate(state.currentContent);
-        clearState();
-    }, [state.currentContent, onUpdate, content, validationError, clearState]);
+        clearError();
+        setState((prevState) => ({
+            ...prevState,
+            isEditing: false,
+        }));
+    }, [state.currentContent, onUpdate, validationError, clearError, content]);
 
     const handleKeyDown = useCallback(
         async (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -51,8 +55,9 @@ export const useEditableContent = (
                 return;
             }
 
-            const shouldSave =
-                type === 'title' ? key === KEYBOARD_KEYS.ENTER : key === KEYBOARD_KEYS.ENTER && (metaKey || ctrlKey);
+            const shouldSave = type.includes('title')
+                ? key === KEYBOARD_KEYS.ENTER
+                : key === KEYBOARD_KEYS.ENTER && (metaKey || ctrlKey);
 
             if (shouldSave) {
                 event.preventDefault();
@@ -66,11 +71,18 @@ export const useEditableContent = (
         operation === 'add'
             ? setState((prevState) => ({ ...prevState, isEditing: true, currentContent: '' }))
             : setState((prevState) => ({ ...prevState, isEditing: true }));
+
         setTimeout(() => {
-            const elementToFocus = type === 'title' ? inputRef.current : textareaRef.current;
-            elementToFocus?.focus();
+            const elementToFocus = type.includes('title') ? inputRef.current : textareaRef.current;
+            if (elementToFocus) {
+                elementToFocus.focus();
+                if (operation !== 'add') {
+                    const contentLength = state.currentContent.length;
+                    elementToFocus.setSelectionRange(contentLength, contentLength);
+                }
+            }
         }, 0);
-    }, [type, operation]);
+    }, [type, operation, state.currentContent]);
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

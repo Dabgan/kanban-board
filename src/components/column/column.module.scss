@@ -18,12 +18,9 @@
 
 .title-bar {
     @include mixins.flex(row, space-between, center);
-
-    gap: 0;
     margin: sizes.$spacing-md 0;
-    width: 100%;
 
-    [data-type='title'] {
+    button {
         border-radius: sizes.$radius-sm;
         font-size: component-sizes.$title-font-size;
         font-weight: component-sizes.$title-font-weight;
@@ -45,13 +42,8 @@
 
 .content {
     @include mixins.flex(column, flex-start, stretch);
-
-    flex-grow: 1;
     margin-bottom: sizes.$spacing-md;
-    min-height: sizes.$spacing-unit;
-    width: 100%;
 
-    // Add gap between cards
     > * {
         margin-bottom: sizes.$spacing-md;
 
@@ -61,20 +53,6 @@
     }
 }
 
-.add-card,
-.new-card {
-    margin: sizes.$spacing-md;
-}
-
-.input {
-    @include mixins.input-base;
-}
-
 .visually-hidden {
     @extend %visually-hidden;
-}
-
-.add-card-container {
-    padding: 0 sizes.$spacing-md;
-    width: 100%;
 }

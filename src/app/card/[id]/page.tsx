@@ -48,8 +48,7 @@ const CardDetailPage = ({ params }: CardDetailPageProps) => {
                     <EditableContent
                         ariaLabel="Edit card title"
                         content={card.title}
-                        placeholder="Add title..."
-                        type="title"
+                        type="card-title"
                         onUpdate={updateTitle}
                     />
                     <EditableContent

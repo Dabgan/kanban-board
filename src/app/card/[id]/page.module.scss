@@ -31,31 +31,16 @@
 .content {
     @include mixins.flex(column, flex-start, stretch, sizes.$spacing-lg);
 
-    [data-type='description'] {
-        background-color: colors.$color-surface;
-        border: component-sizes.$border-width solid colors.$color-accent;
-        min-height: component-sizes.$description-min-height;
-
-        &[contenteditable='true'] {
-            background-color: colors.$color-surface;
-            border-color: colors.$color-accent;
-            min-height: component-sizes.$description-min-height;
-        }
+    button {
+        border: transparent;
     }
 
-    [data-type='title'] {
+    input {
         @include mixins.interactive-border(component-sizes.$border-width);
-
         border-radius: sizes.$radius-sm;
         font-size: component-sizes.$heading-font-size;
         font-weight: component-sizes.$heading-font-weight;
         padding: sizes.$spacing-sm;
-
-        h1 {
-            font-size: inherit;
-            font-weight: inherit;
-            margin: 0;
-        }
     }
 }
 
