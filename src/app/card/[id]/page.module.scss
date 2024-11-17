@@ -7,6 +7,7 @@
     @include mixins.flex(column, center, center);
 
     background-color: colors.$color-background;
+    color: colors.$color-text-secondary;
     min-height: 100vh;
     padding: sizes.$spacing-lg;
     width: 100%;
@@ -37,6 +38,7 @@
 
     input {
         @include mixins.interactive-border(component-sizes.$border-width);
+
         border-radius: sizes.$radius-sm;
         font-size: component-sizes.$heading-font-size;
         font-weight: component-sizes.$heading-font-weight;
@@ -55,13 +57,5 @@
 .error-message {
     color: colors.$color-error;
     font-size: component-sizes.$error-font-size;
-    text-align: center;
-}
-
-.column {
-    color: colors.$color-text-secondary;
-    flex: 1;
-    font-size: component-sizes.$title-font-size;
-    margin: 0;
     text-align: center;
 }

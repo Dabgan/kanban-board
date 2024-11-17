@@ -6,6 +6,7 @@
 
 .input {
     @include mixins.input-base;
+
     font-size: component-sizes.$description-font-size;
 }
 
@@ -61,9 +62,11 @@ button.description {
         outline: none;
     }
 }
+
 .card-title {
-    padding: sizes.$spacing-sm;
     justify-content: flex-start;
+    padding: sizes.$spacing-sm;
+
     h1 {
         font-size: component-sizes.$heading-font-size;
     }

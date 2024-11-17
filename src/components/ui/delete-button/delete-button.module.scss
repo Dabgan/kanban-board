@@ -9,7 +9,8 @@
 
     align-items: center;
     background: none;
-    border: none;
+    border: 2px solid colors.$color-error;
+    border-radius: sizes.$radius-sm;
     color: colors.$color-text;
     cursor: pointer;
     display: flex;
@@ -18,26 +19,13 @@
     @include mixins.transition;
 
     &:hover {
-        color: colors.$color-error;
+        background-color: colors.$color-surface-hover;
+        border-color: darken(colors.$color-error, 10%);
+        color: colors.$color-text;
     }
 
-    &.button {
-        @include mixins.button-base;
-
-        background-color: colors.$color-surface;
-        border-color: colors.$color-error;
-        border-radius: sizes.$radius-sm;
-        color: colors.$color-text;
-        padding: sizes.$spacing-sm sizes.$spacing-md;
-
-        &:hover {
-            background-color: colors.$color-surface-hover;
-            border-color: darken(colors.$color-error, 10%);
-        }
-
-        svg {
-            height: sizes.$spacing-md;
-            width: sizes.$spacing-md;
-        }
+    svg {
+        height: sizes.$spacing-md;
+        width: sizes.$spacing-md;
     }
 }
