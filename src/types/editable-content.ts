@@ -3,11 +3,12 @@ import type { ChangeEvent, KeyboardEvent, RefObject } from 'react';
 export type ContentType = 'title' | 'description';
 
 export type EditableContentProps = {
+    ariaLabel: string;
     content: string;
     onUpdate: (newContent: string) => Promise<void>;
-    ariaLabel: string;
-    type: ContentType;
+    operation?: 'add' | 'edit';
     placeholder?: string;
+    type: ContentType;
 };
 
 export type EditableContentState = {
@@ -22,25 +23,27 @@ export type EditableContentRefs = {
 };
 
 export type EditableContentHandlers = {
+    handleBlur: () => void;
+    handleChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    handleContentClick: () => void;
     handleEdit: () => Promise<void>;
     handleKeyDown: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => Promise<void>;
-    handleContentClick: () => void;
-    handleChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    handleBlur: () => void;
 };
 
 export type UseEditableContentReturn = {
     state: EditableContentState;
     handlers: EditableContentHandlers;
     refs: EditableContentRefs;
+    operation?: EditableContentProps['operation'];
 };
 
 export type FieldType = 'input' | 'textarea';
 
 type CommonFieldProps = {
     ariaLabel: string;
-    value: string;
     hasError: boolean;
+    placeholder: string;
+    value: string;
     onBlur: () => void;
     onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     onKeyDown: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;

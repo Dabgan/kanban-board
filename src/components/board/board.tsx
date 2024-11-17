@@ -7,8 +7,9 @@ import { useBoardOperations } from '@/hooks/use-board-operations';
 import { useDragAndDrop } from '@/hooks/use-drag-and-drop';
 import { getSortedColumnCards } from '@/utils/sorting-utils';
 
-import styles from './board.module.scss';
 import { EditableContent } from '../ui/editable-content/editable-content';
+
+import styles from './board.module.scss';
 
 export const Board = () => {
     const { columns, handleAddColumn } = useBoardOperations();
@@ -26,6 +27,7 @@ export const Board = () => {
                     <EditableContent
                         ariaLabel="Add new column to board"
                         content="Add Column"
+                        operation="add"
                         placeholder="Enter column title..."
                         type="title"
                         onUpdate={handleAddColumn}

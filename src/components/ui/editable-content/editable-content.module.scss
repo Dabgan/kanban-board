@@ -4,11 +4,12 @@
 @use '@/styles/abstracts/colors';
 @use '@/styles/utilities/accessibility';
 
-// .edit-container {
-//     @include mixins.flex(column, flex-start, stretch, sizes.$spacing-sm);
+.edit-container {
+    // border: 2px solid #069cc8;
+    // @include mixins.flex(column, flex-start, stretch, sizes.$spacing-sm);
 
-//     width: 100%;
-// }
+    // width: 100%;
+}
 
 // .content {
 //     @extend %focus-outline;
@@ -59,6 +60,7 @@
 
 .input {
     @include mixins.input-base;
+
     font-size: component-sizes.$description-font-size;
 }
 

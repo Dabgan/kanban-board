@@ -29,9 +29,10 @@ export const EditableContent = ({
     onUpdate,
     ariaLabel,
     type,
+    operation,
     placeholder = EDITABLE_CONTENT_CONSTANTS.PLACEHOLDER,
 }: EditableContentProps): ReactElement => {
-    const { state, handlers, refs } = useEditableContent(content, onUpdate, type);
+    const { state, handlers, refs } = useEditableContent(content, onUpdate, type, operation);
     const { fieldType, Component, className } = getFieldConfig(type);
 
     if (state.isEditing) {
@@ -39,6 +40,7 @@ export const EditableContent = ({
             ariaLabel,
             value: state.currentContent,
             hasError: Boolean(state.validationError),
+            placeholder,
             onBlur: handlers.handleBlur,
             onChange: handlers.handleChange,
             onKeyDown: handlers.handleKeyDown,
@@ -74,9 +76,9 @@ export const EditableContent = ({
             aria-label={ariaLabel}
             className={combineClassNames(styles.content, styles[type])}
             data-type={type}
+            size="small"
             variant="secondary"
             onClick={handlers.handleContentClick}
-            size="small"
         >
             {contentElement}
         </Button>

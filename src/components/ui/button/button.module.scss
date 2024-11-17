@@ -5,13 +5,22 @@
 @use '@/styles/utilities/accessibility';
 
 .button {
+    border-radius: sizes.$radius-sm;
     font-family: inherit;
+    min-width: sizes.$button-min-width;
+    width: 100%;
     @include mixins.transition;
-
+    @include mixins.flex(row, center, center);
     @extend %interactive-element;
     @extend %focus-outline;
-    border-radius: sizes.$radius-sm;
-    width: 100%;
+
+    h1 {
+        font-weight: 700;
+    }
+
+    h2 {
+        font-weight: 500;
+    }
 }
 
 .primary {
@@ -25,8 +34,8 @@
 
 .secondary {
     background-color: colors.$color-surface;
-    color: colors.$color-text;
     border: 2px solid colors.$color-accent;
+    color: colors.$color-text;
 
     &:hover:not(:disabled) {
         background-color: colors.$color-surface-hover;
@@ -36,14 +45,4 @@
 .small {
     font-size: sizes.$button-font-size;
     padding: sizes.$spacing-xs sizes.$spacing-xs;
-}
-
-.medium {
-    font-size: component-sizes.$title-font-size;
-    padding: sizes.$spacing-sm sizes.$spacing-sm;
-}
-
-.large {
-    font-size: component-sizes.$heading-font-size;
-    padding: sizes.$spacing-md sizes.$spacing-md;
 }

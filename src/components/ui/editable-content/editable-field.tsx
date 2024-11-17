@@ -10,12 +10,13 @@ const getFieldClassName = (fieldType: EditableFieldProps['fieldType'], hasError:
     combineClassNames(fieldType === 'input' ? styles.input : styles.textarea, hasError ? styles.error : null);
 
 export const EditableField = (props: EditableFieldProps): ReactElement => {
-    const { fieldType, fieldRef, ariaLabel, value, hasError, onBlur, onChange, onKeyDown } = props;
+    const { fieldType, fieldRef, ariaLabel, value, hasError, placeholder, onBlur, onChange, onKeyDown } = props;
 
     const commonProps = {
         'aria-label': ariaLabel,
         className: getFieldClassName(fieldType, hasError),
         value,
+        placeholder,
         onBlur,
         onChange,
         onKeyDown,

@@ -33,6 +33,8 @@ export const Column = ({ column, cards }: ColumnProps) => {
             <EditableContent
                 ariaLabel={`Add new card to ${column.title} column`}
                 content="Add Card"
+                operation="add"
+                placeholder="Enter card title..."
                 type="title"
                 onUpdate={handleAddCard}
             />

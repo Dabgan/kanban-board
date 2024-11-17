@@ -9,6 +9,7 @@ export const useEditableContent = (
     content: string,
     onUpdate: EditableContentProps['onUpdate'],
     type: EditableContentProps['type'],
+    operation?: EditableContentProps['operation'],
 ): UseEditableContentReturn => {
     const [state, setState] = useState({
         isEditing: false,
@@ -62,13 +63,14 @@ export const useEditableContent = (
     );
 
     const handleContentClick = useCallback(() => {
-        setState((prevState) => ({ ...prevState, isEditing: true }));
-
+        operation === 'add'
+            ? setState((prevState) => ({ ...prevState, isEditing: true, currentContent: '' }))
+            : setState((prevState) => ({ ...prevState, isEditing: true }));
         setTimeout(() => {
             const elementToFocus = type === 'title' ? inputRef.current : textareaRef.current;
             elementToFocus?.focus();
         }, 0);
-    }, [type]);
+    }, [type, operation]);
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
