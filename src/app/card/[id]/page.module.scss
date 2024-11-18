@@ -8,7 +8,6 @@
 
     background-color: colors.$color-background;
     color: colors.$color-text-secondary;
-    min-height: 100vh;
     padding: sizes.$spacing-lg;
     width: 100%;
 }
@@ -21,12 +20,22 @@
     min-height: sizes.$card-detail-min-height;
     padding: sizes.$spacing-lg;
     width: 100%;
+    margin-top: sizes.$spacing-xl;
 }
 
 .header {
     @include mixins.flex(row, space-between, center, sizes.$spacing-md);
-
     margin-bottom: sizes.$spacing-lg;
+    flex-wrap: nowrap;
+}
+
+.column {
+    flex: 1;
+    margin: 0 sizes.$spacing-md;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
 .content {

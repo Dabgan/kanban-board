@@ -10,4 +10,6 @@
 
     font-size: component-sizes.$title-font-size;
     padding: sizes.$spacing-sm sizes.$spacing-md;
+    white-space: nowrap;
+    flex-shrink: 0;
 }

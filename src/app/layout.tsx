@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Toaster } from 'react-hot-toast';
 
+import { Header } from '@/components/header/header';
 import { CardsProviderWrapper } from '@/components/providers/cards-provider';
 import { ColumnsProviderWrapper } from '@/components/providers/columns-provider';
 import { InitialDataWrapper } from '@/components/providers/initial-data-provider';
@@ -19,7 +20,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                 <LoadingProvider>
                     <InitialDataWrapper>
                         <ColumnsProviderWrapper>
-                            <CardsProviderWrapper>{children}</CardsProviderWrapper>
+                            <CardsProviderWrapper>
+                                <Header />
+                                {children}
+                            </CardsProviderWrapper>
                         </ColumnsProviderWrapper>
                     </InitialDataWrapper>
                 </LoadingProvider>

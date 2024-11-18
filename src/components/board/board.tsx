@@ -18,7 +18,6 @@ export const Board = () => {
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
             <main className={styles.board} role="main">
-                <h1 className="visually-hidden">Kanban Board</h1>
                 <Droppable direction="horizontal" droppableId="board-columns" type="COLUMN">
                     {(provided) => (
                         <section

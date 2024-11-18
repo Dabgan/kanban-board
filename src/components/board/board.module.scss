@@ -1,11 +1,10 @@
 @use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/component-sizes';
 @use '@/styles/abstracts/mixins';
 @use '@/styles/abstracts/colors';
 
 .board {
     @include mixins.flex(column);
-
-    height: 100vh;
     padding: sizes.$spacing-lg;
     width: 100%;
 }
@@ -20,11 +19,14 @@
 
     > :last-child {
         width: sizes.$column-width;
+        flex-shrink: 0;
+        min-width: sizes.$column-width;
     }
 }
 
 .column-wrapper {
     position: relative;
+    flex-shrink: 0;
 
     &[data-is-dragging='true'] {
         z-index: 1000;

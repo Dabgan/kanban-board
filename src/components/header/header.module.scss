@@ -1,0 +1,19 @@
+@use '@/styles/abstracts/sizes';
+@use '@/styles/abstracts/mixins';
+@use '@/styles/abstracts/colors';
+@use '@/styles/abstracts/component-sizes';
+
+.header {
+    @include mixins.flex(row, flex-start, center);
+
+    background-color: colors.$color-surface-dark;
+    padding: sizes.$spacing-lg;
+    width: 100%;
+
+    h1 {
+        color: colors.$color-text;
+        font-size: component-sizes.$heading-font-size;
+        font-weight: component-sizes.$heading-font-weight;
+        margin: 0;
+    }
+}
