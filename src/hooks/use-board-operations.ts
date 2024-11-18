@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { useColumns } from '@/hooks/use-columns';
 import { generateId } from '@/lib/utils';
 import type { Column } from '@/types/column';
+import { getSortedColumns } from '@/utils/sorting-utils';
 
 export const useBoardOperations = () => {
     const {
@@ -24,7 +25,7 @@ export const useBoardOperations = () => {
     );
 
     return {
-        columns,
+        columns: getSortedColumns(columns),
         handleAddColumn,
     };
 };

@@ -6,21 +6,23 @@
       "order": 1,
       "cardIds": [
         "card-1"
-      ]
-    },
-    {
-      "id": "col-2",
-      "title": "Tuesday",
-      "order": 2,
-      "cardIds": [
-        "card-2"
-      ]
+      ],
+      "description": ""
     },
     {
       "cardIds": [],
       "id": "col-1731268200796-xu7mal",
       "title": "Too long header name Too long header name Too long header name",
+      "order": 2,
+      "description": ""
+    },
+    {
+      "id": "col-2",
+      "title": "Tuesday",
       "order": 3,
+      "cardIds": [
+        "card-2"
+      ],
       "description": ""
     }
   ],
@@ -37,7 +39,7 @@
       "title": "Clean bedroom 1 XD",
       "description": "Change sheets and vacuum",
       "columnId": "col-2",
-      "order": 3
+      "order": 1
     },
     {
       "id": "card-3",
@@ -50,15 +52,15 @@
       "id": "card-1731443483977-1sqczi",
       "title": "Work on tech assigment",
       "description": "",
-      "columnId": "col-2",
-      "order": 1
+      "columnId": "col-1731268200796-xu7mal",
+      "order": 2
     },
     {
       "id": "card-1731787235134-dbf31x",
       "title": "new card2",
       "description": "qwrdf\n\nfwedsc\n\n\nrfwe\nwdse",
-      "columnId": "col-2",
-      "order": 2
+      "columnId": "col-1731268200796-xu7mal",
+      "order": 1
     }
   ]
 }

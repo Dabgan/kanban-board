@@ -1,4 +1,5 @@
 import type { Card } from '@/types/card';
+import type { Column } from '@/types/column';
 import type { DragResult } from '@/types/dnd';
 
 type BaseReorderArgs = {
@@ -85,24 +86,39 @@ const reorderBetweenColumns = ({
     });
 };
 
-export const reorderCards = (
-    allCards: Card[],
-    { sourceColumnId, sourceIndex, destinationColumnId, destinationIndex }: DragResult,
-): Card[] => {
-    if (sourceColumnId === destinationColumnId) {
+const updateColumnsOrder = (columns: Column[]): Column[] =>
+    columns.map((column, index) => ({
+        ...column,
+        order: index + 1,
+    }));
+
+export const reorderColumns = (allColumns: Column[], sourceIndex: number, destinationIndex: number): Column[] => {
+    const reorderedColumns = [...allColumns];
+    const [movedColumn] = reorderedColumns.splice(sourceIndex, 1);
+
+    if (!movedColumn) {
+        throw new Error('Column not found at source index');
+    }
+
+    reorderedColumns.splice(destinationIndex, 0, movedColumn);
+    return updateColumnsOrder(reorderedColumns);
+};
+
+export const reorderCards = (allCards: Card[], dragResult: DragResult): Card[] => {
+    if (dragResult.sourceColumnId === dragResult.destinationColumnId) {
         return reorderSameColumn({
             allCards,
-            columnId: sourceColumnId,
-            sourceIndex,
-            destinationIndex,
+            columnId: dragResult.sourceColumnId,
+            sourceIndex: dragResult.sourceIndex,
+            destinationIndex: dragResult.destinationIndex,
         });
     }
 
     return reorderBetweenColumns({
         allCards,
-        sourceColumnId,
-        destinationColumnId,
-        sourceIndex,
-        destinationIndex,
+        sourceColumnId: dragResult.sourceColumnId,
+        destinationColumnId: dragResult.destinationColumnId,
+        sourceIndex: dragResult.sourceIndex,
+        destinationIndex: dragResult.destinationIndex,
     });
 };

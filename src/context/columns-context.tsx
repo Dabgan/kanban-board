@@ -102,9 +102,39 @@ export const ColumnsProvider = ({ children, initialColumns }: ColumnsProviderPro
         [setGlobalLoading],
     );
 
-    return (
-        <ColumnsContext.Provider value={{ state, addColumn, updateColumn, deleteColumn }}>
-            {children}
-        </ColumnsContext.Provider>
+    const batchUpdateColumns = useCallback(
+        async (updatedColumns: Column[]) => {
+            setGlobalLoading(true);
+            try {
+                const previousColumns = state.columns;
+                dispatch({ type: 'SET_COLUMNS', payload: updatedColumns });
+
+                const response = await apiClient.columns.batchUpdate(updatedColumns);
+
+                if (response.error ?? !response.data) {
+                    dispatch({ type: 'SET_COLUMNS', payload: previousColumns });
+                    toast.error(response.error?.message ?? 'Failed to update columns');
+                    return;
+                }
+
+                toast.success('Columns updated successfully');
+            } catch (error) {
+                dispatch({ type: 'SET_COLUMNS', payload: state.columns });
+                toast.error('Failed to update columns');
+            } finally {
+                setGlobalLoading(false);
+            }
+        },
+        [state.columns, setGlobalLoading],
     );
+
+    const value = {
+        state,
+        addColumn,
+        updateColumn,
+        deleteColumn,
+        batchUpdateColumns,
+    };
+
+    return <ColumnsContext.Provider value={value}>{children}</ColumnsContext.Provider>;
 };

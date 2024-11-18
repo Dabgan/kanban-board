@@ -71,5 +71,11 @@ export const apiClient = {
             fetchApi<undefined>(`/api/columns/${id}`, {
                 method: 'DELETE',
             }),
+
+        batchUpdate: (columns: Column[]) =>
+            fetchApi<Column[]>('/api/columns/batch', {
+                method: 'PUT',
+                body: columns,
+            }),
     },
 };

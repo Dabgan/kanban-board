@@ -17,6 +17,7 @@ export type ColumnsContextType = {
     addColumn: (column: ColumnRequest) => Promise<void>;
     updateColumn: (id: string, column: Column) => Promise<void>;
     deleteColumn: (id: string) => Promise<void>;
+    batchUpdateColumns: (columns: Column[]) => Promise<void>;
 };
 
 export type ColumnsAction =

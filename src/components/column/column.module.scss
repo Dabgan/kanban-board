@@ -5,15 +5,25 @@
 @use '@/styles/utilities/accessibility';
 
 .column {
+    @include mixins.flex(column, flex-start, stretch);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+
     background-color: colors.$color-surface-dark;
     border-radius: sizes.$radius-md;
+    cursor: grab;
     flex-shrink: 0;
     height: fit-content;
     min-height: sizes.$card-min-height;
     min-width: sizes.$column-width;
     padding: 0 sizes.$spacing-md sizes.$spacing-md;
     width: sizes.$column-width;
-    @include mixins.flex(column, flex-start, stretch);
+
+    &:active {
+        cursor: grabbing;
+    }
 }
 
 .title-bar {

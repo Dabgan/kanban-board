@@ -1,4 +1,4 @@
-'use-client';
+'use client';
 
 import { DroppableColumn } from '@/components/column/droppable-column';
 import { DeleteButton } from '@/components/ui/delete-button/delete-button';
@@ -6,7 +6,6 @@ import { EditableContent } from '@/components/ui/editable-content/editable-conte
 import { useColumnOperations } from '@/hooks/use-column-operations';
 import type { Card } from '@/types/card';
 import type { Column as ColumnType } from '@/types/column';
-import { combineClassNames } from '@/utils/style-utils';
 
 import styles from './column.module.scss';
 
@@ -19,7 +18,7 @@ export const Column = ({ column, cards }: ColumnProps) => {
     const { handleUpdateTitle, handleDelete, handleAddCard } = useColumnOperations(column);
 
     return (
-        <article aria-label={`Column: ${column.title}`} className={combineClassNames(styles.column, styles.draggable)}>
+        <article aria-label={`Column: ${column.title}`} className={styles.column}>
             <div className={styles['title-bar']}>
                 <EditableContent
                     ariaLabel={`Edit ${column.title} column title`}

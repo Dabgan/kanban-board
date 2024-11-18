@@ -1,6 +1,6 @@
 'use client';
 
-import { DragDropContext } from '@hello-pangea/dnd';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 
 import { Column } from '@/components/column/column';
 import { useBoardOperations } from '@/hooks/use-board-operations';
@@ -19,20 +19,41 @@ export const Board = () => {
         <DragDropContext onDragEnd={handleDragEnd}>
             <main className={styles.board} role="main">
                 <h1 className="visually-hidden">Kanban Board</h1>
-                <section aria-label="Kanban board columns" className={styles.columns}>
-                    {columns.map((column) => (
-                        <Column key={column.id} cards={getSortedColumnCards(cards, column.id)} column={column} />
-                    ))}
-
-                    <EditableContent
-                        ariaLabel="Add new column to board"
-                        content="Add Column"
-                        operation="add"
-                        placeholder="Enter column title..."
-                        type="title"
-                        onUpdate={handleAddColumn}
-                    />
-                </section>
+                <Droppable direction="horizontal" droppableId="board-columns" type="COLUMN">
+                    {(provided) => (
+                        <section
+                            ref={provided.innerRef}
+                            aria-label="Kanban board columns"
+                            className={styles.columns}
+                            {...provided.droppableProps}
+                        >
+                            {columns.map((column, index) => (
+                                <Draggable key={column.id} draggableId={column.id} index={index}>
+                                    {(dragProvided, snapshot) => (
+                                        <div
+                                            ref={dragProvided.innerRef}
+                                            className={styles['column-wrapper']}
+                                            data-is-dragging={snapshot.isDragging}
+                                            {...dragProvided.draggableProps}
+                                            {...dragProvided.dragHandleProps}
+                                        >
+                                            <Column cards={getSortedColumnCards(cards, column.id)} column={column} />
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
+                            <EditableContent
+                                ariaLabel="Add new column to board"
+                                content="Add Column"
+                                operation="add"
+                                placeholder="Enter column title..."
+                                type="title"
+                                onUpdate={handleAddColumn}
+                            />
+                        </section>
+                    )}
+                </Droppable>
             </main>
         </DragDropContext>
     );

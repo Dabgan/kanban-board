@@ -16,13 +16,7 @@ const setup = () => {
     const mockUpdateContent = jest.fn().mockImplementation(() => Promise.resolve());
 
     const view = render(
-        <EditableContent
-            ariaLabel="Edit title"
-            content="Initial Content"
-            tag="h2"
-            type="title"
-            onUpdate={mockUpdateContent}
-        />,
+        <EditableContent ariaLabel="Edit title" content="Initial Content" type="title" onUpdate={mockUpdateContent} />,
     );
 
     return {
