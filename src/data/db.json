@@ -1,66 +1,55 @@
 {
-  "columns": [
-    {
-      "id": "col-1",
-      "title": "Monday",
-      "order": 1,
-      "cardIds": [
-        "card-1"
-      ],
-      "description": ""
-    },
-    {
-      "cardIds": [],
-      "id": "col-1731268200796-xu7mal",
-      "title": "Too long header name Too long header name Too long header name",
-      "order": 2,
-      "description": ""
-    },
-    {
-      "id": "col-2",
-      "title": "Tuesday",
-      "order": 3,
-      "cardIds": [
-        "card-2"
-      ],
-      "description": ""
-    }
-  ],
-  "cards": [
-    {
-      "id": "card-1",
-      "title": "Feed doggo",
-      "description": "Give Pimpek his favorite snacks",
-      "columnId": "col-1",
-      "order": 1
-    },
-    {
-      "id": "card-2",
-      "title": "Clean bedroom 1 XD",
-      "description": "Change sheets and vacuum",
-      "columnId": "col-2",
-      "order": 1
-    },
-    {
-      "id": "card-3",
-      "title": "Go to the gym",
-      "description": "Leg day!",
-      "columnId": "col-3",
-      "order": 1
-    },
-    {
-      "id": "card-1731443483977-1sqczi",
-      "title": "Work on tech assigment",
-      "description": "",
-      "columnId": "col-1731268200796-xu7mal",
-      "order": 2
-    },
-    {
-      "id": "card-1731787235134-dbf31x",
-      "title": "new card2",
-      "description": "qwrdf\n\nfwedsc\n\n\nrfwe\nwdse",
-      "columnId": "col-1731268200796-xu7mal",
-      "order": 1
-    }
-  ]
+    "columns": [
+        {
+            "id": "col-1",
+            "title": "Monday",
+            "order": 1,
+            "cardIds": ["card-1"],
+            "description": ""
+        },
+        {
+            "cardIds": [],
+            "id": "col-1731268200796-xu7mal",
+            "title": "Too long header name Too long header name Too long header name",
+            "order": 2,
+            "description": ""
+        },
+        {
+            "id": "col-2",
+            "title": "Tuesday",
+            "order": 3,
+            "cardIds": ["card-2"],
+            "description": ""
+        }
+    ],
+    "cards": [
+        {
+            "id": "card-1",
+            "title": "Feed doggo",
+            "description": "Give Pimpek his favorite snacks",
+            "columnId": "col-1",
+            "order": 1
+        },
+        {
+            "id": "card-2",
+            "title": "Clean bedroom 1 XD",
+            "description": "Change sheets and vacuum",
+            "columnId": "col-2",
+            "order": 1
+        },
+        {
+            "id": "card-3",
+            "title": "Go to the gym",
+            "description": "Leg day!",
+            "columnId": "col-3",
+            "order": 1
+        },
+        {
+            "id": "card-1731443483977-1sqczi",
+            "title": "Work on tech assigment",
+            "description": "",
+            "columnId": "col-1731268200796-xu7mal",
+            "order": 2
+        }
+    ]
 }
